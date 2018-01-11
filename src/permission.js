@@ -4,8 +4,10 @@
 import router from './router'
 import cookieManager from "@/tools/cookie"
 import store from "@/store/index"
+const whiteList = ['/login'];
 router.beforeEach( function(to, from, next){
       if( cookieManager.getCookie( "session_token" ) ){
+            console.log("居然进来了..");
             //第一次或刷新后进入store中的role必定为空,所以当role存在的情况下必定已经动态addRoutes了,切已经把最新的route放到了store中
             if( store.getters.role ){
                   next();
@@ -20,7 +22,12 @@ router.beforeEach( function(to, from, next){
                   } )
             }
       }else{
-            //TODO 可加白名单
-            next( '/login' )
+	      if (whiteList.indexOf(to.path) !== -1) {
+	            console.log("从白名单进入");
+		      next()
+	      } else {
+		      console.log("直接进入");
+		      next('/login');
+	      }
       }
 } );
