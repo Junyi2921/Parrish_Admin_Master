@@ -1,0 +1,25 @@
+@import "./constant.scss"; //全局公共常量
+@import "./transition.scss";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.appWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .appMenu {
+    min-height: 100%;
+    background: #545c64;
+  }
+  .appContainer {
+    min-height: 100%;
+  }
+}
