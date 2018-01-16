@@ -7,8 +7,7 @@ var cookie = {
       getCookie : function(name){
             var arr, reg = new RegExp( "(^| )" + name + "=([^;]*)(;|$)" );
             if( arr = document.cookie.match( reg ) )
-                  return (arr[2]);
-            else
+                  return (arr[2]);else
                   return null;
       }, //设置cookie
       setCookie : function(c_name, value, expiredays){
