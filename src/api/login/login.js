@@ -21,6 +21,10 @@ const loginAPI = {
                         mobilePhoneNumber : mobile.toString()
                   }
             } )
+      },logOut:function(){
+            return request({
+                  
+            })
       }
 };
 export default loginAPI;

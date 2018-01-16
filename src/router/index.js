@@ -23,7 +23,7 @@ export const generalRouterMap = [{
       menuShow : true,
       subMenu : false,
       children : [{
-            path : 'dashboard', component : Dashboard, name : 'dashboard'
+            path : 'dashboard', component : Dashboard, name : 'dashboard', meta : { name : '首页', icon : "" }
       }]
 }, {
       path : '/icon',
@@ -34,7 +34,7 @@ export const generalRouterMap = [{
       menuShow : true,
       subMenu : false,
       children : [{
-            path : 'index', component : Icon, name : 'icon',
+            path : 'index', component : Icon, name : 'icon', meta : { name : '图标', icon : "" }
       }]
 }];
 export const normalRouterMap = [{

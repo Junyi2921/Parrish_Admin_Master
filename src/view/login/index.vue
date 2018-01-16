@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <BGThree></BGThree>
+        <BGThree id="threeContainer"></BGThree>
         <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="rules" ref="loginForm"
                  label-position="left">
             <div class="title-container">
@@ -46,11 +46,16 @@
     export default {
         name : 'login', components : { BGThree }, data() {
             return {
-                title : "junyiStyle-admin-master", logoImg : "/static/img/logo.png", nextPath : "/dashboard", smsData : {
+                title : "junyiStyle-admin-master",
+                logoImg : "/static/img/logo.png",
+                nextPath : "/dashboard",
+                smsData : {
                     show : true, count : '', timer : null, loading : false
-                }, loginForm : {
+                },
+                loginForm : {
                     username : '', password : '', smscode : '', loading : false
-                }, rules : {
+                },
+                rules : {
                     username : [{ required : true, message : '请输入登录账户', trigger : 'blur' },],
                     password : [{ required : true, message : '请输入登录密码', trigger : 'blur' },],
                     smscode : [{ required : true, message : '请输入短信验证码', trigger : 'blur' },]
@@ -134,7 +139,7 @@
                 margin: 0 auto;
             }
             .title {
-                color: #35A03F;
+                color: $GREEN_COLOR;
                 text-align: center;
             }
         }

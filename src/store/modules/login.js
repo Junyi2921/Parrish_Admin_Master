@@ -5,7 +5,7 @@ import loginAPI from "@/api/login/login"
 import cookieManager from "@/tools/cookie"
 const loginInfo = {
       state : {
-            token : ""
+            token : cookieManager.getCookie( 'session_token' )
       }, mutations : {
             SET_TOKEN : function(state, token){
                   state.token = token
@@ -69,6 +69,14 @@ const loginInfo = {
                               } );
                         } )
                   } );
+            }, LogOut({ commit }){
+                  return new Promise( function(resolve, reject){
+                        cookieManager.delCookie( "session_token" );
+                        commit( "SET_TOKEN", "" );
+                        commit( "SET_ROLE", "" );
+                        commit( "SET_ROLEID", "" );
+                        resolve();
+                  } )
             }
       }, getters : {
             token : function(state){

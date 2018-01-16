@@ -1,11 +1,15 @@
 <template>
     <el-container class="appWrapper">
-        <el-aside class="appMenu" width="200px">
+        <div class="appMenu">
             <MenuLogo></MenuLogo>
             <MenuHeader></MenuHeader>
-            <Menu :routes="routerMap"></Menu>
-        </el-aside>
+            <transition name="el-fade-in-linear">
+                <Menu :routes="routerMap"></Menu>
+            </transition>
+        </div>
         <el-container class="appContainer">
+            <TopBar></TopBar>
+            <NavBar></NavBar>
             <transition name="fade" mode="out-in">
                 <keep-alive>
                     <router-view></router-view>
@@ -24,18 +28,20 @@
     import Menu from "@/components/Menu/Menu"
     import MenuHeader from "@/components/Menu/MenuHeader"
     import MenuLogo from "@/components/Menu/MenuLogo"
+    import TopBar from "@/components/LayoutBar/TopBar"
+    import NavBar from "@/components/LayoutBar/NavBar"
     export default{
-        computed:{
-            routerMap:function(){
+        computed : {
+            isCollapse : function(){
+                return this.$store.getters.isCollapse
+            }, routerMap : function(){
                 return this.$store.getters.routes
             }
-        },created(){
-
-        },
-        data(){
+        }, created(){
+        }, data(){
             return {}
         }, components : {
-            Menu, MenuHeader,MenuLogo
+            Menu, MenuHeader, MenuLogo, TopBar,NavBar
         }
     }
 </script>

@@ -1,10 +1,11 @@
 <template>
-    <el-header height="90px" class="menu_header" v-loading="loading" element-loading-spinner="el-icon-loading"
-               element-loading-background="rgba(0, 0, 0, 0.8)">
+    <div class="menu_header" :style="{'width':isCollapse}" v-loading="loading"
+         element-loading-spinner="el-icon-loading"
+         element-loading-background="rgba(0, 0, 0, 0.8)">
         <div class="header_img" @click="getUserInfo()">
             <img src="/static/img/logo.jpg">
         </div>
-        <div class="system_userinfo">
+        <div class="system_userinfo" v-if="userInfoShow">
             <div class="userName" v-html="username"></div>
             <div class="userRole">
                 <span class="stateBox" v-if="user_state == -1">已删除</span>
@@ -13,35 +14,35 @@
                 {{user_role | roleToName('user_role')}}
             </div>
         </div>
-    </el-header>
+    </div>
 </template>
 <style rel="stylesheet/scss" lang="scss" scoped>
     .menu_header {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0 10px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        height: 90px;
+        border-top: 1px solid $HEADER_BOX_BORDER_BOTTOM_COLOR;
+        border-bottom: 1px solid $HEADER_BOX_BORDER_BOTTOM_COLOR;
         .header_img {
-            width: 60px;
-            height: 60px;
-            background: #ffffff;
-            border-radius: 60px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
             overflow: hidden;
-            border: 3px solid rgba(0, 0, 0, .5);
+            border: 3px solid $HEADER_IMG_BORDER_COLOR;
             img {
                 width: 100%;
             }
         }
         .system_userinfo {
             display: flex;
-            flex: 1;
             height: 60px;
-            margin-left: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
             flex-direction: column;
             .stateBox {
-                background: #35A03F;
-                color: #ffffff;
+                background: $HEADER_STATE_BOX_BACKGROUND_COLOR;
+                color: $HEADER_STATE_FONT_COLOR;
                 padding: 2px 5px;
                 border-radius: 3px;
                 margin-right: 5px;
@@ -49,7 +50,7 @@
             .userName, .userRole {
                 display: flex;
                 flex: 1;
-                color: #ffffff;
+                color: $HEADER_FONT_COLOR;
                 justify-content: start;
                 align-items: center;
                 cursor: pointer;
@@ -63,7 +64,16 @@
 <script>
     export default{
         computed : {
-            username : function(){
+            userInfoShow:function(){
+                return !this.$store.getters.isCollapse
+            },
+            isCollapse : function(){
+                if( !this.$store.getters.isCollapse ){
+                    return "200px"
+                }else{
+                    return "66px"
+                }
+            }, username : function(){
                 return this.$store.getters.username
             }, user_role : function(){
                 return this.$store.getters.role

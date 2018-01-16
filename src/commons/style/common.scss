@@ -1,25 +1,41 @@
-@import "./constant.scss"; //全局公共常量
+@import "./constant.scss";
+//全局公共常量
 @import "./transition.scss";
 
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.el-menu--collapse {
+    width: 66px !important;
+}
+
+a {
+    text-decoration: none;
 }
 
 .appWrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  .appMenu {
-    min-height: 100%;
-    background: #545c64;
-  }
-  .appContainer {
-    min-height: 100%;
-  }
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .appMenu {
+        display: flex;
+        flex-direction: column;
+        //width: 200px;
+        min-height: 100%;
+        background: $MENU_BACKGROUND_COLOR;
+        box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+        transition: all 2s;
+    }
+    .appContainer {
+        min-height: 100%;
+        flex-direction: column;
+        background: $CONTAINER_BACKGROUND_COLOR;
+    }
 }

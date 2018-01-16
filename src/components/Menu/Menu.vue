@@ -1,13 +1,14 @@
 <template>
     <el-menu
-            :default-active="defaultActive"
+            :default-active="$route.name"
             :unique-opened="uniqueOpened"
-            class="el-menu-vertical-demo"
+            :collapse="isCollapse"
+            class="systemMenu"
             @open="handleOpen"
             @close="handleClose"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
+            background-color="#2F323E"
+            text-color="#68687E"
+            active-text-color="#F2453D"
             :router="routerInfo">
         <template v-for="(item,index) in routes" v-if="item.menuShow">
             <el-submenu :index="item.name" v-if="item.subMenu" :key="item.name">
@@ -30,13 +31,17 @@
     </el-menu>
 </template>
 <style rel="stylesheet/scss" lang="scss" scoped>
-    .el-menu-vertical-demo {
+    .systemMenu {
         border-right: none;
     }
 </style>
 <script>
     export default{
-        props : {
+        computed : {
+             isCollapse : function(){
+                return this.$store.getters.isCollapse
+            }
+        }, props : {
             routes : {
                 type : Array
             }
@@ -45,7 +50,6 @@
                 uniqueOpened : true, routerInfo : true, defaultActive : this.routes[1].name
             }
         }, created(){
-            console.log( this.defaultActive );
         }, methods : {
             handleOpen(key, keyPath) {
                 console.log( key, keyPath );
