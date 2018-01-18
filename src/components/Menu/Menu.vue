@@ -47,7 +47,7 @@
             }
         }, data(){
             return {
-                uniqueOpened : true, routerInfo : true, defaultActive : this.routes[1].name
+                uniqueOpened : true, routerInfo : true
             }
         }, created(){
         }, methods : {

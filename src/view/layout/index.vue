@@ -1,5 +1,5 @@
 <template>
-    <el-container class="appWrapper">
+    <div class="appWrapper">
         <div class="appMenu">
             <MenuLogo></MenuLogo>
             <MenuHeader></MenuHeader>
@@ -7,16 +7,16 @@
                 <Menu :routes="routerMap"></Menu>
             </transition>
         </div>
-        <el-container class="appContainer">
+        <div class="appContainer" :class="{'sm':isCollapse}">
             <TopBar></TopBar>
             <NavBar></NavBar>
             <transition name="fade" mode="out-in">
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
+                <!--<keep-alive>-->
+                <router-view class="layout"></router-view>
+                <!--</keep-alive>-->
             </transition>
-        </el-container>
-    </el-container>
+        </div>
+    </div>
 </template>
 
 <style rel="stylesheet/scss" lang="scss">
@@ -41,7 +41,7 @@
         }, data(){
             return {}
         }, components : {
-            Menu, MenuHeader, MenuLogo, TopBar,NavBar
+            Menu, MenuHeader, MenuLogo, TopBar, NavBar
         }
     }
 </script>

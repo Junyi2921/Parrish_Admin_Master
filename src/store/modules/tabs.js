@@ -33,12 +33,13 @@ const tabInfo = {
                         state.tabs = tabs;
                         return false;
                   }
-                  if( index == 0 ){
+                  if( index == 0 && tabs.length > 0 ){
                         newIndex = index + 1;
-                  }else{
+                        tabs[newIndex].display = true;
+                  }else if( index > 0 ){
                         newIndex = index - 1;
+                        tabs[newIndex].display = true;
                   }
-                  tabs[newIndex].display = true;
                   state.tabs = tabs;
                   return true;
             }
@@ -55,6 +56,8 @@ const tabInfo = {
                         obj.tabs = state.tabs;
                         if( newIndex >= 0 ){
                               obj.path = state.tabs[newIndex].path
+                        }else{
+                              obj.path = '/';
                         }
                         resolve( obj );
                   } )
