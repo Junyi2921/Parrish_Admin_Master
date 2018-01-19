@@ -11,16 +11,7 @@
                 <EchartsLineAndBar></EchartsLineAndBar>
             </div>
             <div class="echartListItem">
-                <EchartsLineAndBar></EchartsLineAndBar>
-            </div>
-            <div class="echartListItem">
-                <EchartsLineAndBar></EchartsLineAndBar>
-            </div>
-            <div class="echartListItem">
-                <EchartsLineAndBar></EchartsLineAndBar>
-            </div>
-            <div class="echartListItem">
-                <EchartsLineAndBar></EchartsLineAndBar>
+                <EchartsPie></EchartsPie>
             </div>
         </div>
     </div>
@@ -48,7 +39,7 @@
                 width: 50%;
                 box-sizing: border-box;
                 padding-right: 5px;
-                padding-bottom: 10px;
+                padding-top: 10px;
             }
             .echartListItem:nth-child(even) {
                 padding-left: 5px;
@@ -59,6 +50,7 @@
 <script>
     import InformationBox from "@/components/Information/Box"
     import EchartsLineAndBar from "@/components/Echarts/EchartsBar&Line"
+    import EchartsPie from "@/components/Echarts/EchartsPie"
     export default{
         name : "dashboard", data(){
             return {
@@ -88,7 +80,7 @@
                 }]
             }
         }, components : {
-            InformationBox, EchartsLineAndBar
+            InformationBox, EchartsLineAndBar, EchartsPie
         }
     }
 </script>
