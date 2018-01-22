@@ -1,8 +1,8 @@
 <template>
-    <div ref="containerPie" class="containerPie"></div>
+    <div ref="containerRadar" class="containerRadar"></div>
 </template>
 <style rel="stylesheet/scss" lang="scss">
-    .containerPie {
+    .containerRadar {
         display: flex;
         flex: 1;
         min-height: 400px;
@@ -25,15 +25,22 @@
             }, //图例数据
             legendData : {
                 type : Array, defalut : function(){
-                    return ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6'];
+                    return ['数据一', '数据二'];
                 }
-            }, //展示数据
+            }, //雷达图最大值及纬度名称
+            radarData : {
+                type : Array, default : function(){
+                    return [{ name : '纬度一', max : 100 }, { name : '纬度二', max : 100 }, {
+                        name : '纬度三', max : 100
+                    }, { name : '纬度四', max : 100 }, { name : '纬度五', max : 100 }, { name : '纬度六', max : 100 }];
+                }
+            }, //雷达图数据
             seriesData : {
                 type : Array, default : function(){
-                    return [{ value : 10, name : 'rose1' }, { value : 5, name : 'rose2' }, {
-                        value : 15, name : 'rose3'
-                    }, { value : 15, name : 'rose4' }, { value : 20, name : 'rose5' }, {
-                        value : 35, name : 'rose6'
+                    return [{
+                        value : [43, 20, 70, 85, 5, 20], name : '数据一'
+                    }, {
+                        value : [50, 15, 55, 90, 79, 60], name : '数据二'
                     }];
                 }
             }
@@ -43,24 +50,26 @@
             }
         }, mounted(){
             let _this = this;
-            this.height = this.$refs.containerPie.offsetHeight;
+            this.height = this.$refs.containerRadar.offsetHeight;
             _this._initChart()
         }, methods : {
             _initChart(){
-                this.myChart = echarts.init( this.$refs.containerPie, 'macarons' ).setOption( {
+                this.myChart = echarts.init( this.$refs.containerRadar, 'macarons' ).setOption( {
                     title : {
                         text : this.title, subtext : this.subTitle
                     }, tooltip : {
                         trigger : 'item', triggerOn : "mousemove"
                     }, legend : {
-                        x : 'center', y : 'bottom', data : this.legendData
+                        data : this.legendData, x : 'center', y : 'bottom',
                     }, toolbox : {
                         show : true, feature : {
-                           restore : { show : true }, saveAsImage : { show : true }
+                            restore : { show : true }, saveAsImage : { show : true }
                         }
-                    }, calculable : true, series : [{
-//                        name : '测试数据',
-                        type : 'pie', radius : '70%', center : ['50%', '50%'], roseType : 'area', data : this.seriesData
+                    }, radar : {
+                        //shape: 'circle',
+                        indicator : this.radarData
+                    }, series : [{
+                        name : '数据一 vs 数据二', type : 'radar', areaStyle : { normal : {} }, data : this.seriesData
                     }]
                 } );
             }

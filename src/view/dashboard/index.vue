@@ -13,6 +13,12 @@
             <div class="echartListItem">
                 <EchartsPie></EchartsPie>
             </div>
+            <div class="echartListItem">
+                <EchartsRadar></EchartsRadar>
+            </div>
+            <div class="echartListItem">
+                <Calendar></Calendar>
+            </div>
         </div>
     </div>
 </template>
@@ -51,6 +57,8 @@
     import InformationBox from "@/components/Information/Box"
     import EchartsLineAndBar from "@/components/Echarts/EchartsBar&Line"
     import EchartsPie from "@/components/Echarts/EchartsPie"
+    import EchartsRadar from "@/components/Echarts/EchartsRadar"
+    import Calendar from "@/components/Calendar/Calendar"
     export default{
         name : "dashboard", data(){
             return {
@@ -80,7 +88,7 @@
                 }]
             }
         }, components : {
-            InformationBox, EchartsLineAndBar, EchartsPie
+            InformationBox, EchartsLineAndBar, EchartsPie, EchartsRadar, Calendar
         }
     }
 </script>
