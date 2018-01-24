@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Login from '@/view/login/index'
 import Layout from "@/view/layout/index"
 import Dashboard from '@/view/dashboard/index'
-import Icon from "@/view/icon/icon"
+import OrderCreate from "@/view/order/create"
+import OrderList from "@/view/order/list"
 import Table from "@/view/table/table"
 Vue.use( Router );
 //通用且不需要权限即可访问的路由
@@ -25,19 +26,21 @@ export const generalRouterMap = [{
       children : [{
             path : 'dashboard', component : Dashboard, name : 'dashboard', meta : { name : '系统概况', icon : "" }
       }]
-}, {
-      path : '/icon',
-      component : Layout,
-      redirect : '/icon/index',
-      name : "icon",
-      meta : { name : '图标', icon : "" },
-      menuShow : true,
-      subMenu : false,
-      children : [{
-            path : 'index', component : Icon, name : 'icon', meta : { name : '图标', icon : "" }
-      }]
 }];
 export const normalRouterMap = [{
+      path : '/order',
+      component : Layout,
+      redirect : '/order/list',
+      name : "orderList",
+      meta : { name : '订单管理', icon : "" },
+      menuShow : true,
+      subMenu : true,
+      children : [{
+            path : 'create', component : OrderCreate, name : 'orderCreate', meta : { name : '创建订单', icon : "" }
+      },{
+            path : 'list', component : OrderList, name : 'orderList', meta : { name : '订单列表', icon : "" }
+      }]
+}, {
       path : '/table',
       component : Layout,
       redirect : '/table/showTable',
@@ -48,7 +51,7 @@ export const normalRouterMap = [{
       children : [{
             path : 'showTable', component : Table, name : "showTable", meta : { name : '显示表格', icon : "" }
       }, {
-            path : 'showTableIcon', component : Icon, name : 'showTableIcon', meta : { name : '图标表格', icon : "" }
+            path : 'showTableIcon', component : OrderList, name : 'showTableIcon', meta : { name : '图标表格', icon : "" }
       }]
 }];
 export default new Router( {

@@ -33,12 +33,16 @@ a {
         background: $MENU_BACKGROUND_COLOR;
         box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
         transition: all 2s;
+        z-index: 10000;
     }
     .appContainer {
+        position: relative;
+        //border-radius: 5px;
         min-height: 100%;
         //flex-direction: column;
         margin-left: 200px;
         background: $CONTAINER_BACKGROUND_COLOR;
+        padding-bottom: 10px;
         &.sm {
             margin-left: 64px;
         }

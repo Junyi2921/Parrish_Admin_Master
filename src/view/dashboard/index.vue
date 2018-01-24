@@ -6,6 +6,14 @@
                             :decimal="item.decimal" :title="item.title"
                             :icon="item.icon" :iconBGC="item.iconBGC"></InformationBox>
         </div>
+        <div class="toDoListAndMapShow">
+            <div class="toDoList">
+                <TableDataShow></TableDataShow>
+            </div>
+            <div class="mapShow">
+                <EchartsBMap></EchartsBMap>
+            </div>
+        </div>
         <div class="echartList">
             <div class="echartListItem">
                 <EchartsLineAndBar></EchartsLineAndBar>
@@ -17,9 +25,10 @@
                 <EchartsRadar></EchartsRadar>
             </div>
             <div class="echartListItem">
-                <Calendar></Calendar>
+                <Calendar :eventData="calenderEventMsg"></Calendar>
             </div>
         </div>
+
     </div>
 </template>
 <style rel="stylesheet/scss" lang="scss">
@@ -49,6 +58,21 @@
             }
             .echartListItem:nth-child(even) {
                 padding-left: 5px;
+                padding-right: 0;
+            }
+        }
+        .toDoListAndMapShow {
+            display: flex;
+            /*flex-wrap: wrap;*/
+            padding-top: 10px;
+            .toDoList {
+                display: flex;
+                width: 45%;
+                margin-right: 10px;
+            }
+            .mapShow {
+                display: flex;
+                flex: 1;
             }
         }
     }
@@ -58,7 +82,9 @@
     import EchartsLineAndBar from "@/components/Echarts/EchartsBar&Line"
     import EchartsPie from "@/components/Echarts/EchartsPie"
     import EchartsRadar from "@/components/Echarts/EchartsRadar"
+    import EchartsBMap from "@/components/Echarts/EchartsBMap"
     import Calendar from "@/components/Calendar/Calendar"
+    import TableDataShow from "@/components/Table/TableDataShow"
     export default{
         name : "dashboard", data(){
             return {
@@ -85,10 +111,14 @@
                     start : 0,
                     end : 2921,
                     decimal : 1
+                }], calenderEventMsg : [{
+                    day : 10, level : "simple"
                 }]
             }
         }, components : {
-            InformationBox, EchartsLineAndBar, EchartsPie, EchartsRadar, Calendar
+            InformationBox, EchartsLineAndBar, EchartsPie, EchartsRadar, Calendar, EchartsBMap, TableDataShow
+        }, mounted(){
+            console.log( this.$route.name );
         }
     }
 </script>

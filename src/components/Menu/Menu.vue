@@ -1,6 +1,6 @@
 <template>
     <el-menu
-            :default-active="$route.name"
+            :default-active="routeName"
             :unique-opened="uniqueOpened"
             :collapse="isCollapse"
             class="systemMenu"
@@ -38,8 +38,10 @@
 <script>
     export default{
         computed : {
-             isCollapse : function(){
+            isCollapse : function(){
                 return this.$store.getters.isCollapse
+            }, routeName : function(){
+                return this.$route.name;
             }
         }, props : {
             routes : {
@@ -49,7 +51,10 @@
             return {
                 uniqueOpened : true, routerInfo : true
             }
-        }, created(){
+        }, mounted(){
+//            this.$nextTick( function(){
+//                this.routeName = this.$route.name;
+//            } );
         }, methods : {
             handleOpen(key, keyPath) {
                 console.log( key, keyPath );

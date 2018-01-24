@@ -12,7 +12,7 @@
             <NavBar></NavBar>
             <transition name="fade" mode="out-in">
                 <!--<keep-alive>-->
-                <router-view class="layout"></router-view>
+                    <router-view class="layout"></router-view>
                 <!--</keep-alive>-->
             </transition>
         </div>

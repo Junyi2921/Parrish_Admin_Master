@@ -56,7 +56,7 @@
                         x : 'center', y : 'bottom', data : this.legendData
                     }, toolbox : {
                         show : true, feature : {
-                           restore : { show : true }, saveAsImage : { show : true }
+                            restore : { show : true }, saveAsImage : { show : true }
                         }
                     }, calculable : true, series : [{
 //                        name : '测试数据',

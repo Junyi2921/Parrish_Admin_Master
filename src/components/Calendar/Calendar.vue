@@ -189,7 +189,11 @@
     //    let firstDay = new Date( currentYear, currentMonth - 1, 1 );//获取当月的第一天
     //    let currentMonthFirstDayOfWeek = firstDay.getDay();//获取当月第一天是周几
     export default{
-        data(){
+        props : {
+            eventData : {
+                type : Array
+            }
+        }, data(){
             return {
                 myChart : null,
                 height : "",
@@ -311,12 +315,18 @@
                     if( this.today.year == this.year && this.today.month == this.month && this.today.day == basicObj.value ){
                         basicObj.today = true
                     }
+                    //TODO 这里是从外部传向子组件的数据
+                    for( let j = 0; j < this.eventData.length; j++ ){
+                        if( this.eventData[j].day - 1 == i ){
+                            basicObj.level = this.eventData[j].level
+                        }
+                    }
                     basicNum.push( basicObj );
                 }
                 this.staticMonthDays = prevMonthDays.concat( basicNum, nextMonthDays );
-                this.staticMonthDays[10].level = 'medium';
-                this.staticMonthDays[12].level = 'simple';
-                this.staticMonthDays[14].level = 'important';
+//                this.staticMonthDays[10].level = 'medium';
+//                this.staticMonthDays[12].level = 'simple';
+//                this.staticMonthDays[14].level = 'important';
             }
         }
     }
