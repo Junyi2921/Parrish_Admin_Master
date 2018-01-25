@@ -7,7 +7,7 @@
                 <Menu :routes="routerMap"></Menu>
             </transition>
         </div>
-        <div class="appContainer" :class="{'sm':isCollapse}">
+        <div class="appContainer" ref="appContainer" :class="{'sm':isCollapse}">
             <TopBar></TopBar>
             <NavBar></NavBar>
             <transition name="fade" mode="out-in">

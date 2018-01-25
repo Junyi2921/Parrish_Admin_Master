@@ -31,6 +31,7 @@ instance.interceptors.request.use( function(config){
 instance.interceptors.response.use( function(response){
       return response;
 }, function(error){
+      console.log( error );
       const errorMsg = error.response.data;
       Message( {
             message : errorMsg.error, type : 'error', duration : 5 * 1000

@@ -26,7 +26,7 @@
                             end-placeholder="结束日期">
             </el-date-picker>
             <el-button type="primary" icon="el-icon-search"></el-button>
-            <el-button type="primary" icon="el-icon-edit"></el-button>
+            <el-button type="primary" icon="el-icon-edit" @click="goCreateView"></el-button>
             <el-button type="success" icon="el-icon-download"></el-button>
         </div>
         <div class="tableDataListFilterBox">
@@ -394,6 +394,9 @@
                 console.log( val );
             }, getItem(val){
                 console.log( val );
+            },
+            goCreateView(){
+                this.$router.push('/order/create');
             }
         }, components : {
         }, mounted(){

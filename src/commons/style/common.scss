@@ -33,7 +33,7 @@ a {
         background: $MENU_BACKGROUND_COLOR;
         box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
         transition: all 2s;
-        z-index: 10000;
+        z-index: 1000;
     }
     .appContainer {
         position: relative;

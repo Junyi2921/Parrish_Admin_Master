@@ -60,7 +60,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 800;
             display: flex;
             height: 60px;
             border-bottom: 1px solid $BOX_TITLE_BORDER_COLOR;
