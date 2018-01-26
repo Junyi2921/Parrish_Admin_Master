@@ -2,17 +2,17 @@
     <div class="tableDataList">
         <div class="tableDataListTools">
             <el-input class="otherStyle" v-model="searchName" placeholder="您可以按照名称/电话等信息搜索"></el-input>
-            <el-select class="selectStyle" v-model="chooseProductType" clearable placeholder="商品类型">
+            <el-select class="selectStyle" v-model="chooseOrderType" clearable placeholder="订单类型">
                 <el-option
-                        v-for="item in productType"
+                        v-for="item in orderType"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
                 </el-option>
             </el-select>
-            <el-select class="selectStyle" v-model="chooseProductBrand" clearable placeholder="商品品牌">
+            <el-select class="selectStyle" v-model="chooseOrderState" clearable placeholder="订单状态">
                 <el-option
-                        v-for="item in productBrand"
+                        v-for="item in orderState"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
@@ -27,7 +27,7 @@
             </el-date-picker>
             <el-button type="primary" icon="el-icon-search"></el-button>
             <el-button type="primary" icon="el-icon-edit" @click="goCreateView"></el-button>
-            <el-button type="success" icon="el-icon-download"></el-button>
+            <el-button type="success" icon="el-icon-download" @click="setExcelAndDownload"></el-button>
         </div>
         <div class="tableDataListFilterBox">
             <div class="tableDataListFilterBoxIcon">
@@ -162,10 +162,19 @@
                         align="center">
                     <template slot-scope="scope">
                         <el-button @click="getItem(scope.row)" type="text" size="small">查看</el-button>
-                        <!--<el-button type="text" size="small">编辑</el-button>-->
+                        <el-button @click="editItem(scope.row)" type="text" size="small">编辑</el-button>
                     </template>
                 </el-table-column>
             </el-table>
+
+            <el-dialog title="订单详情" :visible.sync="orderDetailReadVisible" width="80%">
+                <OrderRead></OrderRead>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="orderDetailVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="orderDetailVisible = false">确 定</el-button>
+                 </span>
+            </el-dialog>
+
             <div class="pagination">
                 <el-pagination
                         @size-change="handleSizeChange"
@@ -266,10 +275,12 @@
     }
 </style>
 <script>
+    import OrderRead from '@/view/order/read'
+    import ExportToExcel from '@/tools/exportToExcel.js'
     export default{
         data(){
             return {
-                createDialog : false, currentPage : 1, choosePayment : [], paymentList : [{
+                orderDetailReadVisible : false, currentPage : 1, choosePayment : [], paymentList : [{
                     label : "已付款", value : "paid"
                 }, {
                     label : "未付款", value : "notPaid"
@@ -283,18 +294,18 @@
                     label : "待评价", value : "400"
                 }, {
                     label : "已完成", value : "500"
-                }], searchName : "", chooseProductType : "", productType : [{
+                }], searchName : "", chooseOrderType : "", orderType : [{
                     label : "全部", value : "all"
                 }, {
                     label : "采购", value : "wholesale"
                 }, {
                     label : "零售", value : "retail"
-                }], chooseProductBrand : "", productBrand : [{
+                }], chooseOrderState : "", orderState : [{
                     label : "全部", value : "all"
                 }, {
-                    label : "品牌一", value : "brand1"
+                    label : "待发货", value : "100"
                 }, {
-                    label : "品牌二", value : "brand2"
+                    label : "待付款", value : "200"
                 }], chooseTime : "", tableData : [{
                     orderCode : '201801230001',
                     name : 'Parrish',
@@ -388,17 +399,25 @@
                 }]
             }
         }, methods : {
-            handleSizeChange(val){
+            setExcelAndDownload(){
+                let tHeader = ['订单号', '收货人'];
+                let filterVal = ['orderCode', 'name'];
+                let dataList = this.tableData;
+                ExportToExcel.exportJSON( tHeader, filterVal, dataList, '订单列表' );
+            }, handleSizeChange(val){
                 console.log( val );
             }, handleCurrentChange(val){
                 console.log( val );
             }, getItem(val){
                 console.log( val );
-            },
-            goCreateView(){
-                this.$router.push('/order/create');
+                this.orderDetailReadVisible = true;
+            }, goCreateView(){
+                this.$router.push( '/order/create' );
+            }, editItem(val){
+                this.$router.push( '/order/edit' );
             }
         }, components : {
+            OrderRead
         }, mounted(){
             console.log( this.$route.name );
         }

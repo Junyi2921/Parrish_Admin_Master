@@ -14,10 +14,10 @@ module.exports = {
             filename : '[name].js',
             publicPath : process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath
       }, resolve : {
-            extensions : ['.js', '.vue', '.json'],
-            alias : {
+            extensions : ['.js', '.vue', '.json'], alias : {
                   'vue$' : 'vue/dist/vue.esm.js',
                   '@' : resolve( 'src' ),
+                  'plug' : path.resolve( __dirname, '../src/plug' )
             }
       }, module : {
             rules : [{

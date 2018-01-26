@@ -8,7 +8,6 @@ import router from './router'
 import store from '@/store/index'
 import filters from '@/tools/filter'
 import './permission'
-
 //全局添加自定义过滤器
 Object.keys( filters ).forEach( function(key){
       Vue.filter( key, filters[key] )

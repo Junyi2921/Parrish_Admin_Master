@@ -1,5 +1,5 @@
 <template>
-    <OrderDetail orderType="CREATE"></OrderDetail>
+    <OrderDetail orderType="READ"></OrderDetail>
 </template>
 <style rel="stylesheet/scss" lang="scss">
 
@@ -9,8 +9,7 @@
     export default{
         data(){
             return {}
-        },
-        components:{
+        }, components : {
             OrderDetail
         }
     }

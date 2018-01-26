@@ -5,6 +5,7 @@ import Layout from "@/view/layout/index"
 import Dashboard from '@/view/dashboard/index'
 import OrderCreate from "@/view/order/create"
 import OrderList from "@/view/order/list"
+import OrderEdit from '@/view/order/edit'
 import Table from "@/view/table/table"
 Vue.use( Router );
 //通用且不需要权限即可访问的路由
@@ -38,9 +39,11 @@ export const normalRouterMap = [{
       children : [{
             path : 'create', component : OrderCreate, name : 'orderCreate', meta : { name : '创建订单', icon : "" }
       },{
+            path : 'edit', component : OrderEdit, name : 'OrderEdit', meta : { name : '编辑订单', icon : "" }
+      },{
             path : 'list', component : OrderList, name : 'orderList', meta : { name : '订单列表', icon : "" }
       }]
-}, {
+},{
       path : '/table',
       component : Layout,
       redirect : '/table/showTable',
