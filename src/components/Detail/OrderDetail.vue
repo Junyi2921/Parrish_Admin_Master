@@ -48,13 +48,15 @@
             <div class="orderDetailOtherInfo">
                 <div class="orderDetailInfoHeader">
                     买家高级信息
-                    <div class="orderDetailInfoSubHeader" v-if="orderType == 'CREATE' ||orderType == 'EDIT'">请填写买家高级信息</div>
+                    <div class="orderDetailInfoSubHeader" v-if="orderType == 'CREATE' ||orderType == 'EDIT'">请填写买家高级信息
+                    </div>
                 </div>
             </div>
             <div class="orderDetailProductList">
                 <div class="orderDetailInfoHeader">
                     订单商品列表
-                    <div class="orderDetailInfoSubHeader" v-if="orderType == 'CREATE' ||orderType == 'EDIT'">请选择订单的商品</div>
+                    <div class="orderDetailInfoSubHeader" v-if="orderType == 'CREATE' ||orderType == 'EDIT'">请选择订单的商品
+                    </div>
                 </div>
                 <div class="orderDetailInfoMain">
                     <div class="orderDetailProductTableTools" v-if="orderType == 'CREATE' ||orderType == 'EDIT'">
@@ -335,7 +337,7 @@
             background: $CREATE_PRODUCT_TOOLS_BACKGROUND;
             border-top: 1px solid $CREATE_PRODUCT_TABLE_TOOLS_BORDER_COLOR;
             box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 0 5px 0 rgba(0, 0, 0, 0.04);
-            z-index: 3000;
+            z-index: 1500;
             .orderDetailToolsItems {
                 display: flex;
                 flex: 1;
@@ -372,6 +374,9 @@
             box-shadow: none;
             border-top: none;
             width: 100% !important;
+            background: $CREATE_ORDER_DETAIL_TOOLS_READ_BACKGROUND;
+            margin-bottom: 10px;
+            border: 1px solid $CREATE_BORDER_COLOR;
             .orderDetailToolsItems {
                 justify-content: flex-start !important;
             }

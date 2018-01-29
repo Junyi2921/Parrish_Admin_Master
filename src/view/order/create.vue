@@ -1,16 +1,19 @@
 <template>
-    <OrderDetail orderType="CREATE"></OrderDetail>
+    <OrderDetail orderType="CREATE">
+    </OrderDetail>
 </template>
-<style rel="stylesheet/scss" lang="scss">
 
+<style rel="stylesheet/scss" lang="scss">
+    
 </style>
+
 <script>
-    import OrderDetail from '@/components/Order/OrderDetail'
-    export default{
-        data(){
+    import OrderDetail from '@/components/Detail/OrderDetail'
+    export default {
+        data() {
             return {}
         },
-        components:{
+        components: {
             OrderDetail
         }
     }

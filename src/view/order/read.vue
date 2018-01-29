@@ -5,7 +5,7 @@
 
 </style>
 <script>
-    import OrderDetail from '@/components/Order/OrderDetail'
+    import OrderDetail from '@/components/Detail/OrderDetail'
     export default{
         data(){
             return {}
