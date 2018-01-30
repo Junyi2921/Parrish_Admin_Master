@@ -1,0 +1,85 @@
+.selectStyle {
+    display: flex;
+    width: 120px;
+}
+
+.otherStyle {
+    display: flex;
+    flex: 1;
+}
+
+.tableDataList {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    margin-bottom: 0;
+    .tableDataListTools {
+        display: flex;
+        div {
+            margin-right: 10px;
+        }
+        div:last-child {
+            margin-right: 0;
+        }
+    }
+    .tableDataListFilterBox {
+        display: flex;
+        height: 60px;
+        background: #ffffff;
+        margin-top: 10px;
+        border: 1px solid $BOX_BORDER_COLOR;
+        border-bottom: none;
+        .tableDataListFilterBoxIcon {
+            display: flex;
+            width: 50px;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px dashed $BOX_BORDER_COLOR;
+            box-sizing: border-box;
+            img {
+                width: 50%;
+            }
+        }
+        .tableDataListFilterBoxList {
+            display: flex;
+            .tableDataListFilterBoxItem {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0 20px;
+                margin-top: 5px;
+                .tableDataListFilterBoxItemCheckbox {
+                    display: flex;
+                }
+                .tableDataListFilterBoxItemTitle {
+                    display: flex;
+                    height: 20px;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 12px;
+                    transform: scale(0.80);
+                    color: $BOX_SUBTITLE_FONT_COLOR;
+                }
+            }
+        }
+    }
+    .tableDataListMain {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        .headerClass {
+            background: $BOX_HEADER_BACKGROUND;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border: 1px solid $BOX_BORDER_COLOR;
+            border-top: none;
+            padding: 10px 0;
+        }
+    }
+}

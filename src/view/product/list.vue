@@ -107,89 +107,7 @@
 </template>
 
 <style rel="stylesheet/scss" lang="scss">
-    .selectStyle {
-        display: flex;
-        width: 120px;
-    }
-
-    .otherStyle {
-        display: flex;
-        flex: 1;
-    }
-
-    .tableDataList {
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
-        .tableDataListTools {
-            display: flex;
-            div {
-                margin-right: 10px;
-            }
-            div:last-child {
-                margin-right: 0;
-            }
-        }
-        .tableDataListFilterBox {
-            display: flex;
-            height: 60px;
-            background: #ffffff;
-            margin-top: 10px;
-            border: 1px solid $BOX_BORDER_COLOR;
-            border-bottom: none;
-            .tableDataListFilterBoxIcon {
-                display: flex;
-                width: 50px;
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-                border-right: 1px dashed $BOX_BORDER_COLOR;
-                box-sizing: border-box;
-                img {
-                    width: 50%;
-                }
-            }
-            .tableDataListFilterBoxList {
-                display: flex;
-                .tableDataListFilterBoxItem {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 0 20px;
-                    margin-top: 5px;
-                    .tableDataListFilterBoxItemCheckbox {
-                        display: flex;
-                    }
-                    .tableDataListFilterBoxItemTitle {
-                        display: flex;
-                        height: 20px;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 12px;
-                        transform: scale(0.80);
-                        color: $BOX_SUBTITLE_FONT_COLOR;
-                    }
-                }
-            }
-        }
-        .tableDataListMain {
-            display: flex;
-            flex-direction: column;
-            .headerClass {
-                background: $BOX_HEADER_BACKGROUND;
-            }
-            .pagination {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #ffffff;
-                border: 1px solid $BOX_BORDER_COLOR;
-                border-top: none;
-                padding: 10px 0;
-            }
-        }
-    }
+    @import "../../commons/style/tableDataList.scss";
 </style>
 
 <script>
@@ -199,10 +117,7 @@
     export default {
         data() {
             return {
-                productDetailReadVisible : false,
-                currentPage : 1,
-                chooseProductStateItems : [],
-                productStateList : [{
+                productDetailReadVisible : false, currentPage : 1, chooseProductStateItems : [], productStateList : [{
                     label : "已上架", value : "online"
                 }, {
                     label : "已下架", value : "offline"
@@ -210,43 +125,28 @@
                     label : "已删除", value : "delete"
                 }, {
                     label : "待审核", value : "waitAuth"
-                }],
-                searchName : "",
-                chooseProductType : "",
-                productType : [{
+                }], searchName : "", chooseProductType : "", productType : [{
                     label : "全部", value : "all"
                 }, {
                     label : "采购", value : "wholesale"
                 }, {
                     label : "零售", value : "retail"
-                }],
-                chooseProductBrand : "",
-                productBrand : [{
+                }], chooseProductBrand : "", productBrand : [{
                     label : "全部", value : "all"
                 }, {
                     label : "商品品牌一", value : "brand01"
                 }, {
                     label : "商品品牌二", value : "brand02"
-                }],
-                chooseTime : "",
-                tableData : [{
-                    productCode : 'P201801290001',
-                    productModel : 'PM2921',
-                    productName : '商品名称01',
-                    productBrand : '商品品牌一',
-                    productType : '采购',
-                    productPrice : 2921.20,
-                    productState : "online"
-                }]
+                }], chooseTime : "", tableData : []
             }
         }, methods : {
             changeChecked(val) {
                 console.log( val );
             }, setExcelAndDownload() {
-                let tHeader = ['订单号', '收货人'];
-                let filterVal = ['orderCode', 'name'];
+                let tHeader = ['商品编号', '商品名称', '商品品牌', '商品型号', '商品价格', '商品类型', '商品状态'];
+                let filterVal = ['productCode', 'productName', 'productBrand', 'productModel', 'productPrice', 'productType', 'productState'];
                 let dataList = this.tableData;
-                ExportToExcel.exportJSON( tHeader, filterVal, dataList, '订单列表' );
+                ExportToExcel.exportJSON( tHeader, filterVal, dataList, '商品列表' );
             }, handleSizeChange(val) {
                 console.log( val );
             }, handleCurrentChange(val) {
@@ -262,7 +162,87 @@
         }, components : {
             ProductRead, CheckBoxItem
         }, mounted() {
-            console.log( this.$route.name );
+            this.tableData = [{
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }, {
+                productCode : 'P201801290001',
+                productModel : 'PM2921',
+                productName : '商品名称01',
+                productBrand : '商品品牌一',
+                productType : '采购',
+                productPrice : 2921.20,
+                productState : "online"
+            }];
         }, watch : {
             chooseProductStateItems(val) {
                 console.log( val );

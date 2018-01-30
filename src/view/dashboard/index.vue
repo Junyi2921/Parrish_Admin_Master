@@ -118,7 +118,7 @@
         }, components : {
             InformationBox, EchartsLineAndBar, EchartsPie, EchartsRadar, Calendar, EchartsBMap, TableDataShow
         }, mounted(){
-            console.log( this.$route.name );
+//            console.log( this.$route.name );
         }
     }
 </script>

@@ -9,7 +9,6 @@ import OrderEdit from '@/view/order/edit'
 import ProductList from '@/view/product/list'
 import ProductCreate from '@/view/product/create'
 import ProductEdit from '@/view/product/edit'
-import Table from "@/view/table/table"
 Vue.use( Router );
 //通用且不需要权限即可访问的路由
 export const generalRouterMap = [{

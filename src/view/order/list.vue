@@ -32,15 +32,18 @@
         <div class="tableDataListMain">
             <el-table :data="tableData" header-cell-class-name="headerClass" border style="width: 100%">
                 <el-table-column fixed type="index" width="50" header-align="center" align="center"></el-table-column>
-                <el-table-column fixed prop="orderCode" label="订单号" width="150" header-align="center" align="center"></el-table-column>
-                <el-table-column prop="name" label="收货人" width="120" header-align="center" align="center"></el-table-column>
+                <el-table-column fixed prop="orderCode" label="订单号" width="150" header-align="center"
+                                 align="center"></el-table-column>
+                <el-table-column prop="name" label="收货人" width="120" header-align="center"
+                                 align="center"></el-table-column>
                 <el-table-column prop="storeName" label="店铺名称" header-align="center" align="center" min-width="130">
                     <template slot-scope="scope">
                         <el-tag type="primary" close-transition>{{scope.row.storeName}}
                         </el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column prop="mobile" label="联系电话" width="120" header-align="center" align="center"></el-table-column>
+                <el-table-column prop="mobile" label="联系电话" width="120" header-align="center"
+                                 align="center"></el-table-column>
                 <el-table-column prop="type" label="类型" width="120" header-align="center" align="center">
                     <template slot-scope="scope">
                         <el-tag :type="scope.row.type === '采购' ? 'primary' : 'success'" close-transition>
@@ -62,7 +65,8 @@
                         </el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column prop="createTime" label="下单时间" width="120" header-align="center" align="center"></el-table-column>
+                <el-table-column prop="createTime" label="下单时间" width="120" header-align="center"
+                                 align="center"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="100" header-align="center" align="center">
                     <template slot-scope="scope">
                         <el-button @click="getItem(scope.row)" type="text" size="small">查看</el-button>
@@ -94,89 +98,7 @@
 </template>
 
 <style rel="stylesheet/scss" lang="scss">
-    .selectStyle {
-        display: flex;
-        width: 120px;
-    }
-
-    .otherStyle {
-        display: flex;
-        flex: 1;
-    }
-
-    .tableDataList {
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
-        .tableDataListTools {
-            display: flex;
-            div {
-                margin-right: 10px;
-            }
-            div:last-child {
-                margin-right: 0;
-            }
-        }
-        .tableDataListFilterBox {
-            display: flex;
-            height: 60px;
-            background: #ffffff;
-            margin-top: 10px;
-            border: 1px solid $BOX_BORDER_COLOR;
-            border-bottom: none;
-            .tableDataListFilterBoxIcon {
-                display: flex;
-                width: 50px;
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-                border-right: 1px dashed $BOX_BORDER_COLOR;
-                box-sizing: border-box;
-                img {
-                    width: 50%;
-                }
-            }
-            .tableDataListFilterBoxList {
-                display: flex;
-                .tableDataListFilterBoxItem {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 0 20px;
-                    margin-top: 5px;
-                    .tableDataListFilterBoxItemCheckbox {
-                        display: flex;
-                    }
-                    .tableDataListFilterBoxItemTitle {
-                        display: flex;
-                        height: 20px;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 12px;
-                        transform: scale(0.80);
-                        color: $BOX_SUBTITLE_FONT_COLOR;
-                    }
-                }
-            }
-        }
-        .tableDataListMain {
-            display: flex;
-            flex-direction: column;
-            .headerClass {
-                background: $BOX_HEADER_BACKGROUND;
-            }
-            .pagination {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #ffffff;
-                border: 1px solid $BOX_BORDER_COLOR;
-                border-top: none;
-                padding: 10px 0;
-            }
-        }
-    }
+    @import "../../commons/style/tableDataList.scss";
 </style>
 
 <script>
@@ -186,18 +108,11 @@
     export default {
         data() {
             return {
-                orderDetailReadVisible : false,
-                currentPage : 1,
-                choosePaymentItems : [],
-                paymentList : [
-                        {
+                orderDetailReadVisible : false, currentPage : 1, choosePaymentItems : [], paymentList : [{
                     label : "已付款", value : "paid"
                 }, {
                     label : "未付款", value : "notPaid"
-                }],
-                chooseOrderTypeItems : [],
-                orderTypeList : [
-                        {
+                }], chooseOrderTypeItems : [], orderTypeList : [{
                     label : "待付款", value : "100"
                 }, {
                     label : "待发货", value : "200"
@@ -207,119 +122,19 @@
                     label : "待评价", value : "400"
                 }, {
                     label : "已完成", value : "500"
-                }],
-                searchName : "",
-                chooseOrderType : "",
-                orderType : [
-                        {
+                }], searchName : "", chooseOrderType : "", orderType : [{
                     label : "全部", value : "all"
                 }, {
                     label : "采购", value : "wholesale"
                 }, {
                     label : "零售", value : "retail"
-                }],
-                chooseOrderState : "",
-                orderState : [
-                        {
+                }], chooseOrderState : "", orderState : [{
                     label : "全部", value : "all"
                 }, {
                     label : "待发货", value : "100"
                 }, {
                     label : "待付款", value : "200"
-                }],
-                chooseTime : "",
-                tableData : [
-                        {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }, {
-                    orderCode : '201801230001',
-                    name : 'Parrish',
-                    storeName : 'JunyiStyle',
-                    mobile : '13000000000',
-                    type : '采购',
-                    pay : '已付款',
-                    orderState : "待发货",
-                    createTime : "2018-02-03"
-                }]
+                }], chooseTime : "", tableData : ''
             }
         }, methods : {
             changeChecked(val) {
@@ -344,7 +159,97 @@
         }, components : {
             OrderRead, CheckBoxItem
         }, mounted() {
-            console.log( this.$route.name );
+            this.tableData = [{
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }, {
+                orderCode : '201801230001',
+                name : 'Parrish',
+                storeName : 'JunyiStyle',
+                mobile : '13000000000',
+                type : '采购',
+                pay : '已付款',
+                orderState : "待发货",
+                createTime : "2018-02-03"
+            }];
         }, watch : {
             choosePaymentItems(val) {
                 console.log( val );

@@ -61,6 +61,10 @@
             }, handleClose(key, keyPath) {
                 console.log( key, keyPath );
             }
+        },watch:{
+            routeName(val){
+                console.log(val);
+            }
         }
     }
 </script>
