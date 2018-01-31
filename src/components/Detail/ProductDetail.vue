@@ -28,10 +28,7 @@
                         <el-input v-model="form.productShowName"></el-input>
                     </el-form-item>
                     <el-form-item label="搜索关键字" class="productSearchKey">
-                        <i class="item" slot="prefix">123</i>
-                        <el-input placeholder="请输入关键字" v-model="keyValue">
-                            <el-button slot="append" icon="el-icon-plus" size="mini" @click="addKey"></el-button>
-                        </el-input>
+                        <InputTags></InputTags>
                     </el-form-item>
                 </div>
                 <div class="productDetailExpertInfo">
@@ -45,13 +42,6 @@
     </div>
 </template>
 <style rel="stylesheet/scss" lang="scss">
-
-    .item {
-        width: 50px;
-        height: 50px;
-        background: #000;
-    }
-
     .productDetailInfoHeader {
         display: flex;
         align-items: flex-end;
@@ -96,11 +86,16 @@
     }
 </style>
 <script>
+    import InputTags from "@/components/Other/InputTags"
     export default{
         data(){
             return {
-                keyValue : "", productState : 1, form : {
-                    productCode : "PC201801300001", productName : "商品名称一", productShowName : "该商品用户端显示名称,并非业务字段,只是显示用。"
+                keyValue : "",
+                productState : 1,
+                form : {
+                    productCode : "PC201801300001",
+                    productName : "商品名称一",
+                    productShowName : "该商品用户端显示名称,并非业务字段,只是显示用。"
                 }, rules : {
                     productCode : [{ required : true }],
                     productName : [{ required : true }],
@@ -112,6 +107,8 @@
             addKey(){
                 console.log( this.keyValue );
             }
+        }, components : {
+            InputTags
         }
     }
 </script>

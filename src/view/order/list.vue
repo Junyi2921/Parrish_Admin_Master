@@ -104,7 +104,7 @@
 <script>
     import OrderRead from '@/view/order/read'
     import ExportToExcel from '@/tools/exportToExcel.js'
-    import CheckBoxItem from '@/components/Checkbox/CheckBox'
+    import CheckBoxItem from '@/components/Other/CheckBox'
     export default {
         data() {
             return {
