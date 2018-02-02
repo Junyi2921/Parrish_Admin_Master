@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="tagsList">
+        <div class="tagsList" :value="value">
             <span class="item" v-for="(item,index) in tags">
                 {{item}}
                 <i class="el-icon-circle-close-outline" style="color:#ffffff" @click="delItem(index)"></i>
             </span>
-            <input type="text" v-model="value" @keyup.enter="enter" @keyup.tab="enter" @keyup.delete="deleteTags(value)"
+            <input type="text" v-model="keys" @keyup.enter="enter" @keyup.tab="enter" @keyup.delete="deleteTags(keys)"
                    placeholder="请输入搜索关键字并回车保存"/>
         </div>
     </div>
@@ -54,21 +54,27 @@
 </style>
 <script>
     export default{
-        data(){
+        props : {
+            value : {
+                type : Array
+            }
+        }, data(){
             return {
-                value : "", oldVal : "", tags : []
+                keys : "", oldVal : "", tags : this.value
             }
         }, watch : {
-            value(newVal, oldVal){
+            value(val){
+                this.tags = val;
+            }, keys(newVal, oldVal){
                 this.oldVal = oldVal;
-            }, tags(){
-//                console.log( this.tags );
+            }, tags(val){
+                this.$emit( 'input', val );
             }
         }, methods : {
             enter(){
-                if( this.value != "" ){
-                    this.tags.push( this.value );
-                    this.value = "";
+                if( this.keys != "" ){
+                    this.tags.push( this.keys );
+                    this.keys = "";
                 }
             }, deleteTags(val){
                 let _this = this;

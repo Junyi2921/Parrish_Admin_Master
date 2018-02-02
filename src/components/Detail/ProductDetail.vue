@@ -19,16 +19,56 @@
                         <div class="productDetailInfoSubHeader">请填写商品基本信息</div>
                     </div>
                     <el-form-item label="商品编号" prop="productCode">
-                        <el-input v-model="form.productCode"></el-input>
+                        <el-input v-model="form.productCode" placeholder="自动生成商品编号"></el-input>
                     </el-form-item>
                     <el-form-item label="商品名称" prop="productName">
-                        <el-input v-model="form.productName"></el-input>
+                        <el-input v-model="form.productName" placeholder="请输入商品名称"></el-input>
                     </el-form-item>
                     <el-form-item label="客户端名称" prop="productShowName">
-                        <el-input v-model="form.productShowName"></el-input>
+                        <el-input v-model="form.productShowName" placeholder="请输入客户端显示名称"></el-input>
                     </el-form-item>
                     <el-form-item label="搜索关键字" class="productSearchKey">
-                        <InputTags></InputTags>
+                        <InputTags v-model="form.productSearchKey"></InputTags>
+                    </el-form-item>
+                    <el-form-item label="商品型号" prop="productModel">
+                        <el-input v-model="form.productModel" placeholder="请输入商品型号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品品牌" prop="productBrand">
+                        <el-select v-model="form.productBrand" filterable placeholder="请选择商品品牌">
+                            <el-option
+                                    v-for="item in responseData.brandOption"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="商品分类" prop="productCategory">
+                        <el-transfer
+                                filterable
+                                :filter-method="filterMethod"
+                                filter-placeholder="请选择商品分类"
+                                v-model="form.productCategory"
+                                :data="responseData.categoryOption">
+                        </el-transfer>
+                    </el-form-item>
+                    <el-form-item label="商品单位" prop="productUnit">
+                        <el-input v-model="form.productUnit" placeholder="请输入商品单位"></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品类型" prop="productType">
+                        <el-select v-model="form.productType" filterable placeholder="请选择商品类型">
+                            <el-option
+                                    v-for="item in responseData.typeOption"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="商品价格" prop="productPrice">
+                        <el-input v-model="form.productPrice" placeholder="请输入商品价格">
+                            <template slot="append">/ {{form.productUnit}}</template>
+                        </el-input>
                     </el-form-item>
                 </div>
                 <div class="productDetailExpertInfo">
@@ -60,6 +100,7 @@
         flex-direction: column;
         margin: 10px;
         margin-bottom: 0;
+        padding-bottom: 10px;
         .productDetailState {
             display: flex;
             flex-direction: column;
@@ -75,12 +116,16 @@
                 padding: 20px;
                 display: flex;
                 flex-direction: column;
-                flex: 1;
                 background: $PRODUCT_DETAIL_BACKGROUND;
                 border: 1px solid $PRODUCT_DETAIL_BORDER_COLOR;
             }
             .productDetailBasicInfo {
+                min-width: 605px;
+                flex: 3;
                 margin-right: 10px;
+            }
+            .productDetailExpertInfo {
+                flex: 1.8;
             }
         }
     }
@@ -90,17 +135,44 @@
     export default{
         data(){
             return {
-                keyValue : "",
-                productState : 1,
-                form : {
+                keyValue : "", productState : 1, filterMethod(query, item) {
+                    return item.searchKey.indexOf( query ) > -1;
+                }, responseData : {
+                    brandOption : [{
+                        value : "brand01", label : "商品品牌01"
+                    }, {
+                        value : "brand02", label : "商品品牌02"
+                    }], categoryOption : [{
+                        label : "商品分类01", key : "category01", searchKey : 'c1'
+                    }, {
+                        label : "商品分类02", key : "category02", searchKey : 'c2'
+                    }], typeOption : [{
+                        label : "采购商品", value : 'wholesale'
+                    }, {
+                        label : "零售商品", value : 'retail'
+                    }]
+                }, form : {
                     productCode : "PC201801300001",
                     productName : "商品名称一",
-                    productShowName : "该商品用户端显示名称,并非业务字段,只是显示用。"
+                    productShowName : "该商品用户端显示名称,并非业务字段,只是显示用。",
+                    productSearchKey : [],
+                    productModel : "",
+                    productBrand : "",
+                    productCategory : [],
+                    productUnit : "",
+                    productType : "",
+                    productPrice : ""
                 }, rules : {
-                    productCode : [{ required : true }],
-                    productName : [{ required : true }],
-                    productShowName : [{ required : true }],
-                    productSearchKey : [{ required : true }]
+                    productCode : [{ required : true, message : '请重新创建商品', trigger : 'blur' }],
+                    productName : [{ required : true, message : '请输入商品名称', trigger : 'blur' }],
+                    productShowName : [{ required : true, message : '请输入客户端显示商品名称', trigger : 'blur' }],
+                    productSearchKey : [{ required : true, message : '请设置商品搜索关键字', trigger : 'blur' }],
+                    productModel : [{ required : true, message : '请输入商品型号', trigger : 'blur' }],
+                    productBrand : [{ required : true, message : '请选择商品品牌', trigger : 'change' }],
+                    productCategory : [{ required : true, message : '请选择商品分类', trigger : 'change' }],
+                    productUnit : [{ required : true, message : '请输入商品单位', trigger : 'blur' }],
+                    productType : [{ required : true, message : '请选择商品类型', trigger : 'change' }],
+                    productPrice : [{ required : true, message : '请输入商品价格', trigger : 'blur' }]
                 }
             }
         }, methods : {
@@ -109,6 +181,12 @@
             }
         }, components : {
             InputTags
+        }, watch : {
+            'form.productSearchKey' : {
+                handler(newVal, oldVal){
+                    console.log( newVal );
+                }, deep : true
+            }
         }
     }
 </script>
