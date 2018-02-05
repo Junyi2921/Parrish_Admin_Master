@@ -21,14 +21,30 @@
                     <el-form-item label="商品编号" prop="productCode">
                         <el-input v-model="form.productCode" placeholder="自动生成商品编号"></el-input>
                     </el-form-item>
+                    <el-form-item label="商品类型" prop="productType">
+                        <el-select v-model="form.productType" filterable placeholder="请选择商品类型">
+                            <el-option
+                                    v-for="item in responseData.typeOption"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item label="商品名称" prop="productName">
                         <el-input v-model="form.productName" placeholder="请输入商品名称"></el-input>
                     </el-form-item>
                     <el-form-item label="客户端名称" prop="productShowName">
                         <el-input v-model="form.productShowName" placeholder="请输入客户端显示名称"></el-input>
                     </el-form-item>
-                    <el-form-item label="搜索关键字" class="productSearchKey">
-                        <InputTags v-model="form.productSearchKey"></InputTags>
+                    <el-form-item label="商品单位" prop="productUnit">
+                        <el-input v-model="form.productUnit" placeholder="请输入商品单位"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="商品价格" prop="productPrice">
+                        <el-input v-model="form.productPrice" placeholder="请输入商品价格">
+                            <template slot="append">/ {{form.productUnit}}</template>
+                        </el-input>
                     </el-form-item>
                     <el-form-item label="商品型号" prop="productModel">
                         <el-input v-model="form.productModel" placeholder="请输入商品型号"></el-input>
@@ -47,28 +63,11 @@
                         <el-transfer
                                 filterable
                                 :filter-method="filterMethod"
+                                :titles="['全部分类', '已选分类']"
                                 filter-placeholder="请选择商品分类"
                                 v-model="form.productCategory"
                                 :data="responseData.categoryOption">
                         </el-transfer>
-                    </el-form-item>
-                    <el-form-item label="商品单位" prop="productUnit">
-                        <el-input v-model="form.productUnit" placeholder="请输入商品单位"></el-input>
-                    </el-form-item>
-                    <el-form-item label="商品类型" prop="productType">
-                        <el-select v-model="form.productType" filterable placeholder="请选择商品类型">
-                            <el-option
-                                    v-for="item in responseData.typeOption"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="商品价格" prop="productPrice">
-                        <el-input v-model="form.productPrice" placeholder="请输入商品价格">
-                            <template slot="append">/ {{form.productUnit}}</template>
-                        </el-input>
                     </el-form-item>
                 </div>
                 <div class="productDetailExpertInfo">
@@ -76,9 +75,55 @@
                         商品高级信息
                         <div class="productDetailInfoSubHeader">请填写商品高级信息</div>
                     </div>
+                    <el-form-item label="搜索关键字" class="productSearchKey">
+                        <InputTags v-model="form.productSearchKey"></InputTags>
+                    </el-form-item>
+                </div>
+                <div class="productDetailMainPics">
+                    <div class="productDetailInfoHeader">
+                        商品主图信息
+                        <div class="productDetailInfoSubHeader">请上传商品资源信息</div>
+                    </div>
+                    <el-upload
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            :multiple="true"
+                            list-type="picture-card"
+                            :file-list="form.productMainPicList"
+                            :limit="10"
+                            :on-preview="handlePictureCardPreview"
+                            :on-remove="handleRemove"
+                            :disabled="true">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                </div>
+                <div class="productDetailSupportPics">
+                    <div class="productDetailInfoHeader">
+                        商品辅助图片信息
+                        <div class="productDetailInfoSubHeader">请上传商品资源信息</div>
+                    </div>
+                    <el-upload
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            :multiple="true"
+                            list-type="picture-card"
+                            :file-list="form.productSupportPicList"
+                            :limit="10"
+                            :on-preview="handlePictureCardPreview"
+                            :on-remove="handleRemove">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                </div>
+                <div class="productDetailDesc">
+                    <div class="productDetailInfoHeader">
+                        商品详细信息
+                        <div class="productDetailInfoSubHeader">请编辑商品详细信息</div>
+                    </div>
+                    <Tinymce></Tinymce>
                 </div>
             </div>
         </el-form>
+        <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
     </div>
 </template>
 <style rel="stylesheet/scss" lang="scss">
@@ -112,7 +157,8 @@
         .productDetailInfo {
             margin-top: 10px;
             display: flex;
-            .productDetailBasicInfo, .productDetailExpertInfo {
+            flex-wrap: wrap;
+            .productDetailBasicInfo, .productDetailExpertInfo, .productDetailMainPics, .productDetailSupportPics, .productDetailDesc {
                 padding: 20px;
                 display: flex;
                 flex-direction: column;
@@ -120,22 +166,29 @@
                 border: 1px solid $PRODUCT_DETAIL_BORDER_COLOR;
             }
             .productDetailBasicInfo {
-                min-width: 605px;
+                min-width: 600px;
                 flex: 3;
                 margin-right: 10px;
             }
             .productDetailExpertInfo {
                 flex: 1.8;
             }
+            .productDetailMainPics, .productDetailSupportPics, .productDetailDesc {
+                width: 100%;
+                margin-top: 10px;
+            }
         }
+
     }
 </style>
 <script>
     import InputTags from "@/components/Other/InputTags"
+    import Tinymce from '@/components/Editor/Tinymce/Tinymce'
     export default{
-        data(){
+        mounted(){
+        }, data(){
             return {
-                keyValue : "", productState : 1, filterMethod(query, item) {
+                dialogImageUrl : '', dialogVisible : false, keyValue : "", productState : 1, filterMethod(query, item) {
                     return item.searchKey.indexOf( query ) > -1;
                 }, responseData : {
                     brandOption : [{
@@ -161,7 +214,17 @@
                     productCategory : [],
                     productUnit : "",
                     productType : "",
-                    productPrice : ""
+                    productPrice : "",
+                    productMainPicList : [{
+                        name : 'default.png', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
+                    }, {
+                        name : 'logo.jpg', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
+                    }],
+                    productSupportPicList : [{
+                        name : 'default.png', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
+                    }, {
+                        name : 'logo.jpg', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
+                    }]
                 }, rules : {
                     productCode : [{ required : true, message : '请重新创建商品', trigger : 'blur' }],
                     productName : [{ required : true, message : '请输入商品名称', trigger : 'blur' }],
@@ -178,9 +241,14 @@
         }, methods : {
             addKey(){
                 console.log( this.keyValue );
+            }, handleRemove(file, fileList) {
+                console.log( file, fileList );
+            }, handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
             }
         }, components : {
-            InputTags
+            InputTags, Tinymce
         }, watch : {
             'form.productSearchKey' : {
                 handler(newVal, oldVal){
