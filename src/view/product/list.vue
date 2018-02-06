@@ -63,16 +63,16 @@
                 <el-table-column prop="productState" label="商品状态" width="120" header-align="center" align="center">
                     <template slot-scope="scope">
                         <el-tag type="success" close-transition v-if="scope.row.productState === 'online'">
-                            {{scope.row.productState}}
+                            {{scope.row.productState | productStateCodeToName('scope.row.productState')}}
                         </el-tag>
                         <el-tag type="warning" close-transition v-if="scope.row.productState === 'offline'">
-                            {{scope.row.productState}}
+                            {{scope.row.productState | productStateCodeToName('scope.row.productState')}}
                         </el-tag>
                         <el-tag type="danger" close-transition v-if="scope.row.productState === 'delete'">
-                            {{scope.row.productState}}
+                            {{scope.row.productState | productStateCodeToName('scope.row.productState')}}
                         </el-tag>
                         <el-tag type="info" close-transition v-if="scope.row.productState === 'waitAuth'">
-                            {{scope.row.productState}}
+                            {{scope.row.productState | productStateCodeToName('scope.row.productState')}}
                         </el-tag>
                     </template>
                 </el-table-column>

@@ -1,5 +1,5 @@
 <template>
-    <div class="productDetail">
+    <div class="productDetail" ref="productDetail">
         <div class="productDetailState">
             <div class="productDetailInfoHeader">
                 商品流程
@@ -11,7 +11,7 @@
                 <el-step title="上线" icon="el-icon-success"></el-step>
             </el-steps>
         </div>
-        <el-form ref="formData" :model="form" :rules="rules" label-width="100px">
+        <el-form ref="formData" :model="form" :rules="rules" label-width="100px" style="margin-bottom: 60px">
             <div class="productDetailInfo">
                 <div class="productDetailBasicInfo">
                     <div class="productDetailInfoHeader">
@@ -121,6 +121,22 @@
                 </div>
             </div>
         </el-form>
+
+        <div class="productDetailTools" ref="productDetailTools" :style="{'width':createToolsWidth+'px'}">
+            <div class="productDetailToolsItems">
+                <div class="productDetailToolsItem">
+                    <div class="productDetailToolsItemTitle">商品状态</div>
+                    {{form.productState | productStateCodeToName('form.productState')}}
+                </div>
+            </div>
+            <div class="productDetailToolsItems">
+                <el-button type="info" @click="resetForm()">重置</el-button>
+                <el-button type="success">提交审核</el-button>
+                <el-button type="warning">商品下线</el-button>
+                <el-button type="danger">删除商品</el-button>
+            </div>
+        </div>
+
         <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
         </el-dialog>
@@ -180,17 +196,82 @@
         }
 
     }
+
+    .productDetailTools {
+        justify-content: flex-end;
+        box-sizing: border-box;
+        padding: 10px;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        width: 100%;
+        background: $CREATE_PRODUCT_TOOLS_BACKGROUND;
+        border-top: 1px solid $CREATE_PRODUCT_TABLE_TOOLS_BORDER_COLOR;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 0 5px 0 rgba(0, 0, 0, 0.04);
+        z-index: 1500;
+        .productDetailToolsItems {
+            display: flex;
+            flex: 1;
+            &:last-child {
+                justify-content: flex-end;
+            }
+            .productDetailToolsItem {
+                display: flex;
+                position: relative;
+                justify-content: flex-end;
+                align-items: flex-end;
+                width: 150px;
+                font-size: 20px;
+                padding: 0 20px;
+                border-right: 1px dashed $CREATE_ORDER_DETAIL_TOOLS_BORDER;
+                &:last-child {
+                    border-right: none;
+                }
+                color: #909399;
+                .productDetailToolsItemTitle {
+                    position: absolute;
+                    top: 0;
+                    left: 10px;
+                    font-size: 12px;
+                    transform: scale(0.80);
+                    color: $CREATE_ORDER_DETAIL_TOOLS_TITLE;
+                }
+            }
+        }
+    }
+
+    .productDetailToolsRead {
+        @extend .productDetailTools;
+        position: relative;
+        box-shadow: none;
+        border-top: none;
+        width: 100% !important;
+        background: $CREATE_ORDER_DETAIL_TOOLS_READ_BACKGROUND;
+        margin-bottom: 10px;
+        border: 1px solid $CREATE_BORDER_COLOR;
+        .productDetailToolsItems {
+            justify-content: flex-start !important;
+        }
+    }
 </style>
 <script>
     import InputTags from "@/components/Other/InputTags"
     import Tinymce from '@/components/Editor/Tinymce/Tinymce'
     export default{
         mounted(){
+            this.createToolsWidth = this.$refs.productDetail.offsetWidth + 20;
         }, data(){
             return {
-                dialogImageUrl : '', dialogVisible : false, keyValue : "", productState : 1, filterMethod(query, item) {
+                createToolsWidth : '',
+                dialogImageUrl : '',
+                dialogVisible : false,
+                keyValue : "",
+                productState : 1,
+                filterMethod(query, item) {
                     return item.searchKey.indexOf( query ) > -1;
-                }, responseData : {
+                },
+                responseData : {
                     brandOption : [{
                         value : "brand01", label : "商品品牌01"
                     }, {
@@ -204,7 +285,8 @@
                     }, {
                         label : "零售商品", value : 'retail'
                     }]
-                }, form : {
+                },
+                form : {
                     productCode : "PC201801300001",
                     productName : "商品名称一",
                     productShowName : "该商品用户端显示名称,并非业务字段,只是显示用。",
@@ -215,6 +297,7 @@
                     productUnit : "",
                     productType : "",
                     productPrice : "",
+                    productState : "waitAuth",
                     productMainPicList : [{
                         name : 'default.png', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
                     }, {
@@ -226,7 +309,8 @@
                         name : 'logo.jpg', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
                     }],
                     productDesc : "&nbsp;商品详情案例"
-                }, rules : {
+                },
+                rules : {
                     productCode : [{ required : true, message : '请重新创建商品', trigger : 'blur' }],
                     productName : [{ required : true, message : '请输入商品名称', trigger : 'blur' }],
                     productShowName : [{ required : true, message : '请输入客户端显示商品名称', trigger : 'blur' }],
@@ -247,6 +331,24 @@
             }, handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
+            }, resetForm(){
+                this.$refs['formData'].resetFields();
+                this.form = {
+                    productCode : "PC201801300001",
+                    productName : "",
+                    productShowName : "",
+                    productSearchKey : [],
+                    productModel : "",
+                    productBrand : "",
+                    productCategory : [],
+                    productUnit : "",
+                    productType : "",
+                    productPrice : "",
+                    productState : "waitAuth",
+                    productMainPicList : [],
+                    productSupportPicList : [],
+                    productDesc : ""
+                };
             }
         }, components : {
             InputTags, Tinymce
