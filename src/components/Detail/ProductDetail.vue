@@ -117,7 +117,7 @@
                         商品详细信息
                         <div class="productDetailInfoSubHeader">请编辑商品详细信息</div>
                     </div>
-                    <Tinymce></Tinymce>
+                    <Tinymce v-model="form.productDesc"></Tinymce>
                 </div>
             </div>
         </el-form>
@@ -224,7 +224,8 @@
                         name : 'default.png', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
                     }, {
                         name : 'logo.jpg', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
-                    }]
+                    }],
+                    productDesc : "&nbsp;商品详情案例"
                 }, rules : {
                     productCode : [{ required : true, message : '请重新创建商品', trigger : 'blur' }],
                     productName : [{ required : true, message : '请输入商品名称', trigger : 'blur' }],

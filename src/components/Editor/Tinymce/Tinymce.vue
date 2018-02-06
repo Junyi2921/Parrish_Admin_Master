@@ -3,13 +3,22 @@
         <textarea :id="TinymceId"></textarea>
     </div>
 </template>
+<style>
+    .mce-toolbar.mce-first{
+        border-bottom: 1px solid #d9d9d9;
+    }
+</style>
 <script>
+    import Tinymce from 'tinymce'
     import './language/zh_CN'
+
     export default{
         data () {
             const Id = Date.now();
             return {
-                TinymceId : Id, Editor : null, DefaultConfig : {
+                TinymceId : Id,
+                Editor : null,
+                DefaultConfig : {
                     // GLOBAL
                     height : 600,
                     theme : 'modern',
@@ -89,11 +98,12 @@
         }, beforeDestroy () {
             // 销毁tinymce
             this.$emit( 'on-destroy' );
-            window.tinymce.remove( `$#{this.TinymceId}` );
+            Tinymce.remove( `$#{this.TinymceId}` );
         }, methods : {
             init () {
                 const self = this;
-                this.Editor = window.tinymce.init( {
+                Tinymce.baseURL = 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/tinymce';
+                this.Editor = Tinymce.init( {
                     // 默认配置
                     ...this.DefaultConfig, // prop内传入的的config
                     // 图片上传
@@ -125,8 +135,10 @@
                             formData.append( 'file', blobInfo.blob() );
                             xhr.send( formData )
                         }
-                    }, ...this.config, // 挂载的DOM对象
-                    selector : `#${this.TinymceId}`, setup : (editor) =>{
+                    }, ...this.config,
+                    // 挂载的DOM对象
+                    selector : `#${this.TinymceId}`,
+                    setup : (editor) =>{
                         // 抛出 'on-ready' 事件钩子
                         editor.on( 'init', () =>{
                             self.loading = false;
