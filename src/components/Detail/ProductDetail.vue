@@ -122,7 +122,8 @@
             </div>
         </el-form>
 
-        <div class="productDetailTools" ref="productDetailTools" :style="{'width':createToolsWidth+'px'}">
+        <div class="productDetailTools" ref="productDetailTools" :style="{'width':createToolsWidth+'px'}"
+             v-if="productType != 'read'">
             <div class="productDetailToolsItems">
                 <div class="productDetailToolsItem">
                     <div class="productDetailToolsItemTitle">商品状态</div>
@@ -259,7 +260,11 @@
     import InputTags from "@/components/Other/InputTags"
     import Tinymce from '@/components/Editor/Tinymce/Tinymce'
     export default{
-        mounted(){
+        props : {
+            productType : {
+                type : String
+            }
+        }, mounted(){
             this.createToolsWidth = this.$refs.productDetail.offsetWidth + 20;
         }, data(){
             return {

@@ -1,15 +1,16 @@
 <template>
-    <div>查看</div>
+    <ProductDetail :productType="'read'"></ProductDetail>
 </template>
 <style>
-    
+
 </style>
 <script>
+    import ProductDetail from '@/components/Detail/ProductDetail'
     export default{
         data(){
-            return{
-               
-            }
+            return {}
+        }, components : {
+            ProductDetail
         }
     }
 </script>
