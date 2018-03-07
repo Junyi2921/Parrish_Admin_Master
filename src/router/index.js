@@ -9,6 +9,7 @@ import OrderEdit from '@/view/order/edit'
 import ProductList from '@/view/product/list'
 import ProductCreate from '@/view/product/create'
 import ProductEdit from '@/view/product/edit'
+import CategoryManagement from '@/view/category/index'
 Vue.use( Router );
 //通用且不需要权限即可访问的路由
 export const generalRouterMap = [{
@@ -59,6 +60,20 @@ export const normalRouterMap = [{
             path : 'create', component : ProductCreate, name : 'productCreate', meta : { name : '创建商品', icon : "" }
       }, {
             path : 'edit', component : ProductEdit, name : 'productEdit', meta : { name : '编辑商品', icon : "" }
+      }]
+}, {
+      path : '/category',
+      component : Layout,
+      redirect : '/category/management',
+      name : "category",
+      meta : { name : '分类管理', icon : "" },
+      menuShow : true,
+      subMenu : false,
+      children : [{
+            path : 'management',
+            component : CategoryManagement,
+            name : "CategoryManagement",
+            meta : { name : '分类管理', icon : "" }
       }]
 }];
 export default new Router( {
