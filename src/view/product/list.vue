@@ -111,142 +111,153 @@
 </style>
 
 <script>
-    import ProductRead from '@/view/product/read'
-    import ExportToExcel from '@/tools/exportToExcel.js'
-    import CheckBoxItem from '@/components/Other/CheckBox'
-    export default {
-        data() {
-            return {
-                productDetailReadVisible : false, currentPage : 1, chooseProductStateItems : [], productStateList : [{
-                    label : "已上架", value : "online"
-                }, {
-                    label : "已下架", value : "offline"
-                }, {
-                    label : "已删除", value : "delete"
-                }, {
-                    label : "待审核", value : "waitAuth"
-                }], searchName : "", chooseProductType : "", productType : [{
-                    label : "全部", value : "all"
-                }, {
-                    label : "采购", value : "wholesale"
-                }, {
-                    label : "零售", value : "retail"
-                }], chooseProductBrand : "", productBrand : [{
-                    label : "全部", value : "all"
-                }, {
-                    label : "商品品牌一", value : "brand01"
-                }, {
-                    label : "商品品牌二", value : "brand02"
-                }], chooseTime : "", tableData : []
-            }
-        }, methods : {
-            changeChecked(val) {
-                console.log( val );
-            }, setExcelAndDownload() {
-                let tHeader = ['商品编号', '商品名称', '商品品牌', '商品型号', '商品价格', '商品类型', '商品状态'];
-                let filterVal = ['productCode', 'productName', 'productBrand', 'productModel', 'productPrice', 'productType', 'productState'];
-                let dataList = this.tableData;
-                ExportToExcel.exportJSON( tHeader, filterVal, dataList, '商品列表' );
-            }, handleSizeChange(val) {
-                console.log( val );
-            }, handleCurrentChange(val) {
-                console.log( val );
-            }, getItem(val) {
-                console.log( val );
-                this.productDetailReadVisible = true;
-            }, goCreateView() {
-                this.$router.push( '/product/create' );
-            }, editItem(val) {
-                this.$router.push( '/product/edit' );
-            }
-        }, components : {
-            ProductRead, CheckBoxItem
-        }, mounted() {
-            this.tableData = [{
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }, {
-                productCode : 'P201801290001',
-                productModel : 'PM2921',
-                productName : '商品名称01',
-                productBrand : '商品品牌一',
-                productType : '采购',
-                productPrice : 2921.20,
-                productState : "online"
-            }];
-        }, watch : {
-            chooseProductStateItems(val) {
-                console.log( val );
-            }
-        }
-    }
+	import ProductRead from '@/view/product/read'
+	import ExportToExcel from '@/tools/exportToExcel.js'
+	import CheckBoxItem from '@/components/Other/CheckBox'
+
+	export default {
+		data() {
+			return {
+				productDetailReadVisible: false,
+				currentPage: 1,
+				chooseProductStateItems: [],
+				productStateList: [{
+					label: "已上架", value: "online"
+				}, {
+					label: "已下架", value: "offline"
+				}, {
+					label: "已删除", value: "delete"
+				}, {
+					label: "待审核", value: "waitAuth"
+				}],
+				searchName: "",
+				chooseProductType: "",
+				productType: [{
+					label: "全部", value: "all"
+				}, {
+					label: "采购", value: "wholesale"
+				}, {
+					label: "零售", value: "retail"
+				}],
+				chooseProductBrand: "",
+				productBrand: [{
+					label: "全部", value: "all"
+				}, {
+					label: "商品品牌一", value: "brand01"
+				}, {
+					label: "商品品牌二", value: "brand02"
+				}],
+				chooseTime: "",
+				tableData: []
+			}
+		}, methods: {
+			changeChecked(val) {
+				console.log(val);
+			}, setExcelAndDownload() {
+				let tHeader = ['商品编号', '商品名称', '商品品牌', '商品型号', '商品价格', '商品类型', '商品状态'];
+				let filterVal = ['productCode', 'productName', 'productBrand', 'productModel', 'productPrice', 'productType', 'productState'];
+				let dataList = this.tableData;
+				ExportToExcel.exportJSON(tHeader, filterVal, dataList, '商品列表');
+			}, handleSizeChange(val) {
+				console.log(val);
+			}, handleCurrentChange(val) {
+				console.log(val);
+			}, getItem(val) {
+				console.log(val);
+				this.productDetailReadVisible = true;
+			}, goCreateView() {
+				this.$router.push('/product/create');
+			}, editItem(val) {
+				this.$router.push('/product/edit');
+			}
+		}, components: {
+			ProductRead, CheckBoxItem
+		}, mounted() {
+			this.tableData = [{
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}, {
+				productCode: 'P201801290001',
+				productModel: 'PM2921',
+				productName: '商品名称01',
+				productBrand: '商品品牌一',
+				productType: '采购',
+				productPrice: 2921.20,
+				productState: "online"
+			}];
+		}, watch: {
+			chooseProductStateItems(val) {
+				console.log(val);
+			}
+		}
+	}
 </script>

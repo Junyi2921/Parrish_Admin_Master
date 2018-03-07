@@ -102,160 +102,161 @@
 </style>
 
 <script>
-    import OrderRead from '@/view/order/read'
-    import ExportToExcel from '@/tools/exportToExcel.js'
-    import CheckBoxItem from '@/components/Other/CheckBox'
-    export default {
-        data() {
-            return {
-                orderDetailReadVisible : false, currentPage : 1, choosePaymentItems : [], paymentList : [{
-                    label : "已付款", value : "paid"
-                }, {
-                    label : "未付款", value : "notPaid"
-                }], chooseOrderTypeItems : [], orderTypeList : [{
-                    label : "待付款", value : "100"
-                }, {
-                    label : "待发货", value : "200"
-                }, {
-                    label : "已发货", value : "300"
-                }, {
-                    label : "待评价", value : "400"
-                }, {
-                    label : "已完成", value : "500"
-                }], searchName : "", chooseOrderType : "", orderType : [{
-                    label : "全部", value : "all"
-                }, {
-                    label : "采购", value : "wholesale"
-                }, {
-                    label : "零售", value : "retail"
-                }], chooseOrderState : "", orderState : [{
-                    label : "全部", value : "all"
-                }, {
-                    label : "待发货", value : "100"
-                }, {
-                    label : "待付款", value : "200"
-                }], chooseTime : "", tableData : ''
-            }
-        }, methods : {
-            changeChecked(val) {
-                console.log( val );
-            }, setExcelAndDownload() {
-                let tHeader = ['订单号', '收货人'];
-                let filterVal = ['orderCode', 'name'];
-                let dataList = this.tableData;
-                ExportToExcel.exportJSON( tHeader, filterVal, dataList, '订单列表' );
-            }, handleSizeChange(val) {
-                console.log( val );
-            }, handleCurrentChange(val) {
-                console.log( val );
-            }, getItem(val) {
-                console.log( val );
-                this.orderDetailReadVisible = true;
-            }, goCreateView() {
-                this.$router.push( '/order/create' );
-            }, editItem(val) {
-                this.$router.push( '/order/edit' );
-            }
-        }, components : {
-            OrderRead, CheckBoxItem
-        }, mounted() {
-            this.tableData = [{
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }, {
-                orderCode : '201801230001',
-                name : 'Parrish',
-                storeName : 'JunyiStyle',
-                mobile : '13000000000',
-                type : '采购',
-                pay : '已付款',
-                orderState : "待发货",
-                createTime : "2018-02-03"
-            }];
-        }, watch : {
-            choosePaymentItems(val) {
-                console.log( val );
-            }, chooseOrderTypeItems(val) {
-                console.log( val );
-            }
-        }
-    }
+	import OrderRead from '@/view/order/read'
+	import ExportToExcel from '@/tools/exportToExcel.js'
+	import CheckBoxItem from '@/components/Other/CheckBox'
+
+	export default {
+		data() {
+			return {
+				orderDetailReadVisible: false, currentPage: 1, choosePaymentItems: [], paymentList: [{
+					label: "已付款", value: "paid"
+				}, {
+					label: "未付款", value: "notPaid"
+				}], chooseOrderTypeItems: [], orderTypeList: [{
+					label: "待付款", value: "100"
+				}, {
+					label: "待发货", value: "200"
+				}, {
+					label: "已发货", value: "300"
+				}, {
+					label: "待评价", value: "400"
+				}, {
+					label: "已完成", value: "500"
+				}], searchName: "", chooseOrderType: "", orderType: [{
+					label: "全部", value: "all"
+				}, {
+					label: "采购", value: "wholesale"
+				}, {
+					label: "零售", value: "retail"
+				}], chooseOrderState: "", orderState: [{
+					label: "全部", value: "all"
+				}, {
+					label: "待发货", value: "100"
+				}, {
+					label: "待付款", value: "200"
+				}], chooseTime: "", tableData: []
+			}
+		}, methods: {
+			changeChecked(val) {
+				console.log(val);
+			}, setExcelAndDownload() {
+				let tHeader = ['订单号', '收货人'];
+				let filterVal = ['orderCode', 'name'];
+				let dataList = this.tableData;
+				ExportToExcel.exportJSON(tHeader, filterVal, dataList, '订单列表');
+			}, handleSizeChange(val) {
+				console.log(val);
+			}, handleCurrentChange(val) {
+				console.log(val);
+			}, getItem(val) {
+				console.log(val);
+				this.orderDetailReadVisible = true;
+			}, goCreateView() {
+				this.$router.push('/order/create');
+			}, editItem(val) {
+				this.$router.push('/order/edit');
+			}
+		}, components: {
+			OrderRead, CheckBoxItem
+		}, mounted() {
+			this.tableData = [{
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}, {
+				orderCode: '201801230001',
+				name: 'Parrish',
+				storeName: 'JunyiStyle',
+				mobile: '13000000000',
+				type: '采购',
+				pay: '已付款',
+				orderState: "待发货",
+				createTime: "2018-02-03"
+			}];
+		}, watch: {
+			choosePaymentItems(val) {
+				console.log(val);
+			}, chooseOrderTypeItems(val) {
+				console.log(val);
+			}
+		}
+	}
 </script>
