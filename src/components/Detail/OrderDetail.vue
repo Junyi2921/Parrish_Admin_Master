@@ -400,250 +400,250 @@
     }
 </style>
 <script>
-	export default {
-		props: {
-			orderType: {
-				type: String, default: "CREATE"
-			}
-		}, computed: {}, data() {
-			return {
-				orderBasicDisabled() {
-					if (this.orderType == "READ") {
-						return true;
-					} else if (this.orderType == "EDIT" || this.orderType == "CREATE") {
-						return false;
-					}
-				},
-				createToolsWidth: '',
-				dialogImageUrl: '',
-				staticCity: [{
-					value: "022", label: "天津", children: [{
-						value: "001", label: "天津市", children: [{
-							value: "001", label: "南开区"
-						}, {
-							value: "002", label: "和平区"
-						}, {
-							value: "003", label: "红桥区"
-						}, {
-							value: "004", label: "河西区"
-						}, {
-							value: "005", label: "河北区"
-						}, {
-							value: "006", label: "河东区"
-						}, {
-							value: "007", label: "西青区"
-						}]
-					}]
-				}],
-				productSelected: [],
-				searchDialogList: false,
-				searchInfo: "",
-				searchProductList: [],
-				searchTableData: [{
-					productCode: "P000001",
-					productName: '商品名称01',
-					productBrand: '商品品牌',
-					productCategory: '分类一/分类二/分类三',
-					productPrice: 100.00,
-					productDesc: "商品描述",
-					productNum: 1,
-				}, {
-					productCode: "P000002",
-					productName: '商品名称02',
-					productBrand: '商品品牌',
-					productCategory: '分类一/分类二/分类三',
-					productPrice: 100.00,
-					productDesc: "商品描述",
-					productNum: 1
-				}, {
-					productCode: "P000003",
-					productName: '商品名称03',
-					productBrand: '商品品牌',
-					productCategory: '分类一/分类二/分类三',
-					productPrice: 100.00,
-					productDesc: "商品描述",
-					productNum: 1
-				}, {
-					productCode: "P000011",
-					productName: '商品名称11',
-					productBrand: '商品品牌',
-					productCategory: '分类一/分类二/分类三',
-					productPrice: 100.00,
-					productDesc: "商品描述",
-					productNum: 1
-				}, {
-					productCode: "P000012",
-					productName: '商品名称12',
-					productBrand: '商品品牌',
-					productCategory: '分类一/分类二/分类三',
-					productPrice: 100.00,
-					productDesc: "商品描述",
-					productNum: 1
-				}],
-				orderStateCode: "100",
-				form: {
-					name: "",
-					storeName: "",
-					receiveName: "",
-					receiveMobile: "",
-					receiveCity: [],
-					receiveAddress: "",
-					tableData: [],
-					totalPrice: 0,
-					totalNum: 0
-				},
-				rules: {
-					name: [{required: true}]
-				}
-			}
-		}, mounted() {
-			console.log(this.$refs.orderDetail.offsetWidth);
-			this.createToolsWidth = this.$refs.orderDetail.offsetWidth + 3;
-			this.form.tableData = [{
-				productCode: "P000001",
-				productName: '商品名称01',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000002",
-				productName: '商品名称02',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000003",
-				productName: '商品名称03',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000004",
-				productName: '商品名称04',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000005",
-				productName: '商品名称05',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000006",
-				productName: '商品名称06',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000007",
-				productName: '商品名称07',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000008",
-				productName: '商品名称08',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000009",
-				productName: '商品名称09',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}, {
-				productCode: "P000010",
-				productName: '商品名称10',
-				productBrand: '商品品牌',
-				productCategory: '分类一/分类二/分类三',
-				productPrice: 100.00,
-				productDesc: "商品描述",
-				productNum: 1
-			}];
-		}, watch: {
-			'form.tableData': {
-				handler(newVal, oldVal) {
-					this.form.totalPrice = 0;
-					this.form.totalNum = 0;
-					for (let i = 0; i < newVal.length; i++) {
-						this.form.totalPrice = this.form.totalPrice + newVal[i].productPrice * newVal[i].productNum;
-						this.form.totalNum = this.form.totalNum + newVal[i].productNum;
-					}
-				}, deep: true
-			}
-		}, methods: {
-			resetForm() {
-				this.$refs['formData'].resetFields();
-				this.form = {
-					name: "",
-					storeName: "",
-					receiveName: "",
-					receiveMobile: "",
-					receiveCity: [],
-					receiveAddress: "",
-					tableData: [],
-					totalPrice: 0,
-					totalNum: 0
-				}
-			}, deleteProductWithSelected() {
-				let newArray = [];
-				for (let i = 0; i < this.form.tableData.length; i++) {
-					let flag = false;
-					for (let j = 0; j < this.productSelected.length; j++) {
-						if (this.form.tableData[i].productCode == this.productSelected[j].productCode) {
-							flag = true;
-							break;
-						}
-					}
-					if (!flag) {
-						newArray.push(this.form.tableData[i])
-					}
-				}
-				this.form.tableData = newArray;
-			}, chooseCity(val) {
-				console.log(val);
-			}, selectedProduct(val) {
-				this.productSelected = val;
-				console.log(val);
-			}, selectedSearchProduct(val) {
-				this.searchProductList = val;
-			}, addProductWithSelected() {
-				for (let i = 0; i < this.searchProductList.length; i++) {
-					let flag = false;
-					for (let j = 0; j < this.form.tableData.length; j++) {
-						if (this.searchProductList[i].productCode == this.form.tableData[j].productCode) {
-							flag = true;
-							this.form.tableData[j].productNum++;
-							break;
-						}
-					}
-					if (!flag) {
-						this.form.tableData.push(this.searchProductList[i]);
-					}
-				}
-				this.searchTableData = [];
-				this.searchDialogList = false;
-			}
-		}
-	}
+    export default {
+        props : {
+            orderType : {
+                type : String, default : "CREATE"
+            }
+        }, computed : {}, data() {
+            return {
+                orderBasicDisabled() {
+                    if( this.orderType == "READ" ){
+                        return true;
+                    }else if( this.orderType == "EDIT" || this.orderType == "CREATE" ){
+                        return false;
+                    }
+                },
+                createToolsWidth : '',
+                dialogImageUrl : '',
+                staticCity : [{
+                    value : "022", label : "天津", children : [{
+                        value : "001", label : "天津市", children : [{
+                            value : "001", label : "南开区"
+                        }, {
+                            value : "002", label : "和平区"
+                        }, {
+                            value : "003", label : "红桥区"
+                        }, {
+                            value : "004", label : "河西区"
+                        }, {
+                            value : "005", label : "河北区"
+                        }, {
+                            value : "006", label : "河东区"
+                        }, {
+                            value : "007", label : "西青区"
+                        }]
+                    }]
+                }],
+                productSelected : [],
+                searchDialogList : false,
+                searchInfo : "",
+                searchProductList : [],
+                searchTableData : [{
+                    productCode : "P000001",
+                    productName : '商品名称01',
+                    productBrand : '商品品牌',
+                    productCategory : '分类一/分类二/分类三',
+                    productPrice : 100.00,
+                    productDesc : "商品描述",
+                    productNum : 1,
+                }, {
+                    productCode : "P000002",
+                    productName : '商品名称02',
+                    productBrand : '商品品牌',
+                    productCategory : '分类一/分类二/分类三',
+                    productPrice : 100.00,
+                    productDesc : "商品描述",
+                    productNum : 1
+                }, {
+                    productCode : "P000003",
+                    productName : '商品名称03',
+                    productBrand : '商品品牌',
+                    productCategory : '分类一/分类二/分类三',
+                    productPrice : 100.00,
+                    productDesc : "商品描述",
+                    productNum : 1
+                }, {
+                    productCode : "P000011",
+                    productName : '商品名称11',
+                    productBrand : '商品品牌',
+                    productCategory : '分类一/分类二/分类三',
+                    productPrice : 100.00,
+                    productDesc : "商品描述",
+                    productNum : 1
+                }, {
+                    productCode : "P000012",
+                    productName : '商品名称12',
+                    productBrand : '商品品牌',
+                    productCategory : '分类一/分类二/分类三',
+                    productPrice : 100.00,
+                    productDesc : "商品描述",
+                    productNum : 1
+                }],
+                orderStateCode : "100",
+                form : {
+                    name : "",
+                    storeName : "",
+                    receiveName : "",
+                    receiveMobile : "",
+                    receiveCity : [],
+                    receiveAddress : "",
+                    tableData : [],
+                    totalPrice : 0,
+                    totalNum : 0
+                },
+                rules : {
+                    name : [{ required : true }]
+                }
+            }
+        }, mounted() {
+            console.log( this.$refs.orderDetail.offsetWidth );
+            this.createToolsWidth = this.$refs.orderDetail.offsetWidth + 3;
+            this.form.tableData = [{
+                productCode : "P000001",
+                productName : '商品名称01',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000002",
+                productName : '商品名称02',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000003",
+                productName : '商品名称03',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000004",
+                productName : '商品名称04',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000005",
+                productName : '商品名称05',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000006",
+                productName : '商品名称06',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000007",
+                productName : '商品名称07',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000008",
+                productName : '商品名称08',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000009",
+                productName : '商品名称09',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }, {
+                productCode : "P000010",
+                productName : '商品名称10',
+                productBrand : '商品品牌',
+                productCategory : '分类一/分类二/分类三',
+                productPrice : 100.00,
+                productDesc : "商品描述",
+                productNum : 1
+            }];
+        }, watch : {
+            'form.tableData' : {
+                handler(newVal, oldVal) {
+                    this.form.totalPrice = 0;
+                    this.form.totalNum = 0;
+                    for( let i = 0; i < newVal.length; i++ ){
+                        this.form.totalPrice = this.form.totalPrice + newVal[i].productPrice * newVal[i].productNum;
+                        this.form.totalNum = this.form.totalNum + newVal[i].productNum;
+                    }
+                }, deep : true
+            }
+        }, methods : {
+            resetForm() {
+                this.$refs['formData'].resetFields();
+                this.form = {
+                    name : "",
+                    storeName : "",
+                    receiveName : "",
+                    receiveMobile : "",
+                    receiveCity : [],
+                    receiveAddress : "",
+                    tableData : [],
+                    totalPrice : 0,
+                    totalNum : 0
+                }
+            }, deleteProductWithSelected() {
+                let newArray = [];
+                for( let i = 0; i < this.form.tableData.length; i++ ){
+                    let flag = false;
+                    for( let j = 0; j < this.productSelected.length; j++ ){
+                        if( this.form.tableData[i].productCode == this.productSelected[j].productCode ){
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if( !flag ){
+                        newArray.push( this.form.tableData[i] )
+                    }
+                }
+                this.form.tableData = newArray;
+            }, chooseCity(val) {
+                console.log( val );
+            }, selectedProduct(val) {
+                this.productSelected = val;
+                console.log( val );
+            }, selectedSearchProduct(val) {
+                this.searchProductList = val;
+            }, addProductWithSelected() {
+                for( let i = 0; i < this.searchProductList.length; i++ ){
+                    let flag = false;
+                    for( let j = 0; j < this.form.tableData.length; j++ ){
+                        if( this.searchProductList[i].productCode == this.form.tableData[j].productCode ){
+                            flag = true;
+                            this.form.tableData[j].productNum++;
+                            break;
+                        }
+                    }
+                    if( !flag ){
+                        this.form.tableData.push( this.searchProductList[i] );
+                    }
+                }
+                this.searchTableData = [];
+                this.searchDialogList = false;
+            }
+        }
+    }
 </script>

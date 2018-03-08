@@ -258,122 +258,115 @@
     }
 </style>
 <script>
-	import InputTags from "@/components/Other/InputTags"
-	import Tinymce from '@/components/Editor/Tinymce/Tinymce'
-
-	export default {
-		props: {
-			productType: {
-				type: String
-			}
-		}, mounted() {
-			console.log(this.$refs.productDetail.offsetWidth)
-			this.createToolsWidth = this.$refs.productDetail.offsetWidth + 20;
-		}, data() {
-			return {
-				createToolsWidth: '',
-				dialogImageUrl: '',
-				dialogVisible: false,
-				keyValue: "",
-				productState: 1,
-				filterMethod(query, item) {
-					return item.searchKey.indexOf(query) > -1;
-				},
-				responseData: {
-					brandOption: [{
-						value: "brand01", label: "商品品牌01"
-					}, {
-						value: "brand02", label: "商品品牌02"
-					}], categoryOption: [{
-						label: "商品分类01", key: "category01", searchKey: 'c1'
-					}, {
-						label: "商品分类02", key: "category02", searchKey: 'c2'
-					}], typeOption: [{
-						label: "采购商品", value: 'wholesale'
-					}, {
-						label: "零售商品", value: 'retail'
-					}]
-				},
-				form: {
-					productCode: "PC201801300001",
-					productName: "商品名称一",
-					productShowName: "该商品用户端显示名称,并非业务字段,只是显示用。",
-					productSearchKey: [],
-					productModel: "",
-					productBrand: "",
-					productCategory: [],
-					productUnit: "",
-					productType: "",
-					productPrice: "",
-					productState: "waitAuth",
-					productMainPicList: [{
-						name: 'default.png',
-						url: 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
-					}, {
-						name: 'logo.jpg', url: 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
-					}],
-					productSupportPicList: [{
-						name: 'default.png',
-						url: 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
-					}, {
-						name: 'logo.jpg', url: 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
-					}],
-					productDesc: "&nbsp;商品详情案例"
-				},
-				rules: {
-					productCode: [
-						{
-							required: true,
-							message: '请重新创建商品',
-							trigger: 'blur'
-						}
-					],
-					productName: [{required: true, message: '请输入商品名称', trigger: 'blur'}],
-					productShowName: [{required: true, message: '请输入客户端显示商品名称', trigger: 'blur'}],
-					productSearchKey: [{required: true, message: '请设置商品搜索关键字', trigger: 'blur'}],
-					productModel: [{required: true, message: '请输入商品型号', trigger: 'blur'}],
-					productBrand: [{required: true, message: '请选择商品品牌', trigger: 'change'}],
-					productCategory: [{required: true, message: '请选择商品分类', trigger: 'change'}],
-					productUnit: [{required: true, message: '请输入商品单位', trigger: 'blur'}],
-					productType: [{required: true, message: '请选择商品类型', trigger: 'change'}],
-					productPrice: [{required: true, message: '请输入商品价格', trigger: 'blur'}]
-				}
-			}
-		}, methods: {
-			addKey() {
-				console.log(this.keyValue);
-			}, handleRemove(file, fileList) {
-				console.log(file, fileList);
-			}, handlePictureCardPreview(file) {
-				this.dialogImageUrl = file.url;
-				this.dialogVisible = true;
-			}, resetForm() {
-				this.$refs['formData'].resetFields();
-				this.form = {
-					productCode: "PC201801300001",
-					productName: "",
-					productShowName: "",
-					productSearchKey: [],
-					productModel: "",
-					productBrand: "",
-					productCategory: [],
-					productUnit: "",
-					productType: "",
-					productPrice: "",
-					productState: "waitAuth",
-					productMainPicList: [],
-					productSupportPicList: [],
-					productDesc: ""
-				};
-			}
-		}, components: {
-			InputTags, Tinymce
-		}, watch: {
-			'form.productSearchKey': {
-				handler(newVal, oldVal) {
-					console.log(newVal);
-				}, deep: true
-			}
-		}
-	}
+    import InputTags from "@/components/Other/InputTags"
+    import Tinymce from '@/components/Editor/Tinymce/Tinymce'
+    export default {
+        props : {
+            productType : {
+                type : String
+            }
+        }, mounted() {
+            console.log( this.$refs.productDetail.offsetWidth )
+            this.createToolsWidth = this.$refs.productDetail.offsetWidth + 20;
+        }, data() {
+            return {
+                createToolsWidth : '',
+                dialogImageUrl : '',
+                dialogVisible : false,
+                keyValue : "",
+                productState : 1,
+                filterMethod(query, item) {
+                    return item.searchKey.indexOf( query ) > -1;
+                },
+                responseData : {
+                    brandOption : [{
+                        value : "brand01", label : "商品品牌01"
+                    }, {
+                        value : "brand02", label : "商品品牌02"
+                    }], categoryOption : [{
+                        label : "商品分类01", key : "category01", searchKey : 'c1'
+                    }, {
+                        label : "商品分类02", key : "category02", searchKey : 'c2'
+                    }], typeOption : [{
+                        label : "采购商品", value : 'wholesale'
+                    }, {
+                        label : "零售商品", value : 'retail'
+                    }]
+                },
+                form : {
+                    productCode : "PC201801300001",
+                    productName : "商品名称一",
+                    productShowName : "该商品用户端显示名称,并非业务字段,只是显示用。",
+                    productSearchKey : [],
+                    productModel : "",
+                    productBrand : "",
+                    productCategory : [],
+                    productUnit : "",
+                    productType : "",
+                    productPrice : "",
+                    productState : "waitAuth",
+                    productMainPicList : [{
+                        name : 'default.png', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
+                    }, {
+                        name : 'logo.jpg', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
+                    }],
+                    productSupportPicList : [{
+                        name : 'default.png', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/IMG_0181.png'
+                    }, {
+                        name : 'logo.jpg', url : 'http://parrish-wn.oss-cn-beijing.aliyuncs.com/logo.jpg'
+                    }],
+                    productDesc : "&nbsp;商品详情案例"
+                },
+                rules : {
+                    productCode : [{
+                        required : true, message : '请重新创建商品', trigger : 'blur'
+                    }],
+                    productName : [{ required : true, message : '请输入商品名称', trigger : 'blur' }],
+                    productShowName : [{ required : true, message : '请输入客户端显示商品名称', trigger : 'blur' }],
+                    productSearchKey : [{ required : true, message : '请设置商品搜索关键字', trigger : 'blur' }],
+                    productModel : [{ required : true, message : '请输入商品型号', trigger : 'blur' }],
+                    productBrand : [{ required : true, message : '请选择商品品牌', trigger : 'change' }],
+                    productCategory : [{ required : true, message : '请选择商品分类', trigger : 'change' }],
+                    productUnit : [{ required : true, message : '请输入商品单位', trigger : 'blur' }],
+                    productType : [{ required : true, message : '请选择商品类型', trigger : 'change' }],
+                    productPrice : [{ required : true, message : '请输入商品价格', trigger : 'blur' }]
+                }
+            }
+        }, methods : {
+            addKey() {
+                console.log( this.keyValue );
+            }, handleRemove(file, fileList) {
+                console.log( file, fileList );
+            }, handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            }, resetForm() {
+                this.$refs['formData'].resetFields();
+                this.form = {
+                    productCode : "PC201801300001",
+                    productName : "",
+                    productShowName : "",
+                    productSearchKey : [],
+                    productModel : "",
+                    productBrand : "",
+                    productCategory : [],
+                    productUnit : "",
+                    productType : "",
+                    productPrice : "",
+                    productState : "waitAuth",
+                    productMainPicList : [],
+                    productSupportPicList : [],
+                    productDesc : ""
+                };
+            }
+        }, components : {
+            InputTags, Tinymce
+        }, watch : {
+            'form.productSearchKey' : {
+                handler(newVal, oldVal) {
+                    console.log( newVal );
+                }, deep : true
+            }
+        }
+    }
 </script>

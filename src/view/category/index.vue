@@ -41,6 +41,25 @@
                     </span>
                 </span>
             </el-tree>
+            <el-dialog :title="dialogObj.title" :visible.sync="dialogObj.visible" width="50%"
+                       :before-close="handleClose">
+                <div v-if="dialogObj.type == 'editor'">
+                    <span>编辑</span>
+                </div>
+                <div v-if="dialogObj.type == 'delete'">
+                    <el-alert :closable="false" title="您真的要删除该分类吗?" type="warning"
+                              description="删除该'分类'之前,请确认该'分类'下无'商品'。">
+                    </el-alert>
+                </div>
+                <span slot="footer" class="dialog-footer" v-if="dialogObj.type == 'editor'">
+                            <el-button @click="dialogObj.visible = false">取 消</el-button>
+                            <el-button type="primary" @click="() => editorSubmit()">确 定</el-button>
+                        </span>
+                <span slot="footer" class="dialog-footer" v-if="dialogObj.type == 'delete'">
+                            <el-button @click="dialogObj.visible = false">取 消</el-button>
+                            <el-button type="primary" @click="() => removeItem()">确 定</el-button>
+                        </span>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -105,7 +124,9 @@
     export default{
         data(){
             return {
-                filterText : '', categoryData : [{
+                dialogObj : {
+                    node : "", data : "", visible : false, type : "editor", title : ""
+                }, filterText : '', categoryData : [{
                     id : 1, label : '一级 1', children : [{
                         id : 4, label : '二级 1-1', children : [{
                             id : 9, label : '三级 1-1-1'
@@ -143,7 +164,15 @@
                 this.$set( data, 'editor', true );
                 this.$set( data, 'newLabel', data.label );
             }, editor(data){
-                console.log( data )
+                console.log( data );
+                this.dialogObj.title = "编辑分类信息";
+                this.dialogObj.type = "editor";
+                this.dialogObj.node = "";
+                this.dialogObj.data = data;
+                this.dialogObj.visible = true;
+            }, editorSubmit(){
+                console.log( this.dialogObj.data )
+                this.dialogObj.visible = false;
             }, append(data) {
                 const newChild = { id : id++, label : '新的商品分类', children : [] };
                 if( !data.children ){
@@ -151,10 +180,17 @@
                 }
                 data.children.push( newChild );
             }, remove(node, data) {
-                const parent = node.parent;
+                this.dialogObj.title = "删除分类信息";
+                this.dialogObj.type = "delete";
+                this.dialogObj.node = node;
+                this.dialogObj.data = data;
+                this.dialogObj.visible = true;
+            }, removeItem(){
+                const parent = this.dialogObj.node.parent;
                 const children = parent.data.children || parent.data;
-                const index = children.findIndex( d => d.id === data.id );
+                const index = children.findIndex( d => d.id === this.dialogObj.data.id );
                 children.splice( index, 1 );
+                this.dialogObj.visible = false;
             }, filterNode(value, data) {
                 if( !value ) return true;
                 return data.label.indexOf( value ) !== -1;
