@@ -498,7 +498,7 @@
             }
         }, mounted() {
             console.log( this.$refs.orderDetail.offsetWidth );
-            this.createToolsWidth = this.$refs.orderDetail.offsetWidth + 3;
+            this.createToolsWidth = this.$refs.orderDetail.offsetWidth + 20;
             this.form.tableData = [{
                 productCode : "P000001",
                 productName : '商品名称01',

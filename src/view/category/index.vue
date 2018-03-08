@@ -41,10 +41,9 @@
                     </span>
                 </span>
             </el-tree>
-            <el-dialog :title="dialogObj.title" :visible.sync="dialogObj.visible" width="50%"
-                       :before-close="handleClose">
+            <el-dialog :title="dialogObj.title" :visible.sync="dialogObj.visible" width="50%">
                 <div v-if="dialogObj.type == 'editor'">
-                    <span>编辑</span>
+                    <el-input v-model="newLabel" clearable></el-input>
                 </div>
                 <div v-if="dialogObj.type == 'delete'">
                     <el-alert :closable="false" title="您真的要删除该分类吗?" type="warning"
@@ -125,8 +124,15 @@
         data(){
             return {
                 dialogObj : {
-                    node : "", data : "", visible : false, type : "editor", title : ""
-                }, filterText : '', categoryData : [{
+                    node : "",
+                    data : "",
+                    visible : false,
+                    type : "editor",
+                    title : ""
+                },
+                filterText : '',
+                newLabel : "",
+                categoryData : [{
                     id : 1, label : '一级 1', children : [{
                         id : 4, label : '二级 1-1', children : [{
                             id : 9, label : '三级 1-1-1'
@@ -170,6 +176,7 @@
                 this.dialogObj.node = "";
                 this.dialogObj.data = data;
                 this.dialogObj.visible = true;
+                this.newLabel = data.label;
             }, editorSubmit(){
                 console.log( this.dialogObj.data )
                 this.dialogObj.visible = false;
