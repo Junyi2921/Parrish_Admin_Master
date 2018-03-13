@@ -24,7 +24,8 @@
                              {{node.label}}
                          </span>
                          <span v-if="data.editor" class="customEditorLabel">
-                             <el-input v-focus @blur="() => editorBlur(node,data)" v-model="data.newLabel"
+                             <el-input v-focus @blur="() => saveEditorContent(node,data)"
+                                       @keyup.enter.native="() => saveEditorContent(node,data)" v-model="data.newLabel"
                                        ref="newLabel"></el-input>
                          </span>
                      </span>
@@ -124,15 +125,8 @@
         data(){
             return {
                 dialogObj : {
-                    node : "",
-                    data : "",
-                    visible : false,
-                    type : "editor",
-                    title : ""
-                },
-                filterText : '',
-                newLabel : "",
-                categoryData : [{
+                    node : "", data : "", visible : false, type : "editor", title : ""
+                }, filterText : '', newLabel : "", categoryData : [{
                     id : 1, label : '一级 1', children : [{
                         id : 4, label : '二级 1-1', children : [{
                             id : 9, label : '三级 1-1-1'
@@ -163,8 +157,9 @@
                 }
             }
         }, methods : {
-            editorBlur(node, data){
+            saveEditorContent(node, data){
                 this.$delete( data, 'editor' );
+                this.$set( data, 'label', data.newLabel );
                 console.log( "保存成功" )
             }, dbShowLabel(node, data){
                 this.$set( data, 'editor', true );
@@ -178,14 +173,14 @@
                 this.dialogObj.visible = true;
                 this.newLabel = data.label;
             }, editorSubmit(){
-                console.log( this.dialogObj.data )
+                console.log( this.dialogObj.data );
                 this.dialogObj.visible = false;
             }, append(data) {
                 const newChild = { id : id++, label : '新的商品分类', children : [] };
                 if( !data.children ){
                     this.$set( data, 'children', [] );
                 }
-                data.children.push( newChild );
+                data.children.unshift( newChild );
             }, remove(node, data) {
                 this.dialogObj.title = "删除分类信息";
                 this.dialogObj.type = "delete";
